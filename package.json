@@ -1,0 +1,28 @@
+{
+  "name": "reddit-emit",
+  "version": "0.0.1",
+  "description": "Reddit API as event emitters",
+  "keywords": [
+    "reddit",
+    "api",
+    "events"
+  ],
+  "author": "zaim",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^2.1.0",
+    "nock": "^0.55.0"
+  },
+  "dependencies": {
+    "debug": "^2.1.1",
+    "event-stream": "^3.2.1",
+    "lodash": "^2.4.1",
+    "qs": "git://github.com/zaim/qs#sort-keys",
+    "request": "^2.51.0"
+  }
+}
