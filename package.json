@@ -29,6 +29,7 @@
   "devDependencies": {
     "expect.js": "^0.3.1",
     "mocha": "^2.1.0",
-    "nock": "^0.55.0"
+    "nock": "^0.55.0",
+    "snooform": "^0.1.1"
   }
 }
