@@ -13,6 +13,25 @@ describe('Refresh', function () {
   }
 
 
+  it('should throw error with missing options', function () {
+    expect(Refresh).to.throwError(/Refresh requires the "options" argument/);
+    expect(function () {
+      new Refresh({}); // jshint ignore:line
+    }).to.throwError(/Refresh requires the "url" option/);
+  });
+
+
+  it('should emit error on missing options on fetch', function (done) {
+    var request = new Refresh({ url: 'initial' });
+    request.options.url = null;
+    request.on('error', function (e) {
+      expect(e.message).to.match(/Refresh requires the "url" option/);
+      done();
+    });
+    request.fetch();
+  });
+
+
   it('should send request at intervals', function (done) {
     var tick, scope, request;
 
@@ -29,7 +48,9 @@ describe('Refresh', function () {
       url: 'https://www.reddit.com/comments/test'
     });
 
-    request.on('error', expect().fail);
+    request.on('error', function (e) {
+      expect().fail(e);
+    });
     request.on('response', tick);
 
     request.fetch();
