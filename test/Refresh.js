@@ -58,14 +58,13 @@ describe('Refresh', function () {
 
 
   it('should emit error on non-200 responses', function (done) {
-    var fn, scope, request;
+    var tick, scope, request;
 
-    fn = function (err) {
-      expect(err.message).to.match(/^Refresh: request responded with/);
+    tick = ticker(2, function () {
       request.stop();
       scope.done();
       done();
-    };
+    });
 
     scope = getScope().reply(500);
 
@@ -74,7 +73,16 @@ describe('Refresh', function () {
       url: 'https://www.reddit.com/comments/test'
     });
 
-    request.on('error', fn);
+    request.on('error', function (err) {
+      expect(err.message).to.match(/^Refresh: request responded with/);
+      tick();
+    });
+
+    // test 'response' event must always be fired
+    request.on('response', function (resp) {
+      expect(resp.statusCode).to.eql(500);
+      tick();
+    });
 
     request.fetch();
   });
