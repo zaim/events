@@ -17,10 +17,7 @@ function main () {
     var last = i === api.length - 1;
     var tab = '  ';
 
-    endpoint.re = {
-      _type: 'RegExp',
-      source: '^' + endpoint.path.replace(varRegex, _replacer) + '$'
-    };
+    endpoint.re = '^' + endpoint.path.replace(varRegex, _replacer) + '$';
 
     if (params.length) {
       endpoint.parameters = params;

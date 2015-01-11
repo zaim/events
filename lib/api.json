@@ -35,10 +35,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/([^/]+)$"
-    },
+    "re": "^/([^/]+)$",
     "parameters": [
       "sort"
     ]
@@ -79,10 +76,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/([^/]+)$"
-    },
+    "re": "^/about/([^/]+)$",
     "parameters": [
       "location"
     ]
@@ -123,10 +117,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/([^/]+)$"
-    },
+    "re": "^/about/([^/]+)$",
     "parameters": [
       "where"
     ]
@@ -167,10 +158,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/banned$"
-    }
+    "re": "^/about/banned$"
   },
   {
     "path": "/about/contributors",
@@ -208,10 +196,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/contributors$"
-    }
+    "re": "^/about/contributors$"
   },
   {
     "path": "/about/edited",
@@ -249,10 +234,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/edited$"
-    }
+    "re": "^/about/edited$"
   },
   {
     "path": "/about/log",
@@ -293,10 +275,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/log$"
-    }
+    "re": "^/about/log$"
   },
   {
     "path": "/about/moderators",
@@ -334,10 +313,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/moderators$"
-    }
+    "re": "^/about/moderators$"
   },
   {
     "path": "/about/modqueue",
@@ -375,10 +351,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/modqueue$"
-    }
+    "re": "^/about/modqueue$"
   },
   {
     "path": "/about/reports",
@@ -416,10 +389,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/reports$"
-    }
+    "re": "^/about/reports$"
   },
   {
     "path": "/about/spam",
@@ -457,10 +427,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/spam$"
-    }
+    "re": "^/about/spam$"
   },
   {
     "path": "/about/unmoderated",
@@ -498,10 +465,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/unmoderated$"
-    }
+    "re": "^/about/unmoderated$"
   },
   {
     "path": "/about/wikibanned",
@@ -539,10 +503,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/wikibanned$"
-    }
+    "re": "^/about/wikibanned$"
   },
   {
     "path": "/about/wikicontributors",
@@ -580,10 +541,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/about/wikicontributors$"
-    }
+    "re": "^/about/wikicontributors$"
   },
   {
     "path": "/api/$subreddit_stylesheet",
@@ -615,10 +573,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/([^/]+)_stylesheet$"
-    },
+    "re": "^/api/([^/]+)_stylesheet$",
     "parameters": [
       "subreddit"
     ]
@@ -641,10 +596,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/accept_moderator_invite$"
-    }
+    "re": "^/api/accept_moderator_invite$"
   },
   {
     "path": "/api/adddeveloper",
@@ -670,10 +622,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/adddeveloper$"
-    }
+    "re": "^/api/adddeveloper$"
   },
   {
     "path": "/api/approve",
@@ -696,10 +645,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/approve$"
-    }
+    "re": "^/api/approve$"
   },
   {
     "path": "/api/block",
@@ -722,10 +668,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/block$"
-    }
+    "re": "^/api/block$"
   },
   {
     "path": "/api/clear_sessions",
@@ -751,10 +694,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/clear_sessions$"
-    }
+    "re": "^/api/clear_sessions$"
   },
   {
     "path": "/api/clearflairtemplates",
@@ -780,10 +720,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/clearflairtemplates$"
-    }
+    "re": "^/api/clearflairtemplates$"
   },
   {
     "path": "/api/comment",
@@ -812,10 +749,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/comment$"
-    }
+    "re": "^/api/comment$"
   },
   {
     "path": "/api/compose",
@@ -856,10 +790,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/compose$"
-    }
+    "re": "^/api/compose$"
   },
   {
     "path": "/api/del",
@@ -882,10 +813,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/del$"
-    }
+    "re": "^/api/del$"
   },
   {
     "path": "/api/delete_sr_header",
@@ -908,10 +836,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/delete_sr_header$"
-    }
+    "re": "^/api/delete_sr_header$"
   },
   {
     "path": "/api/delete_sr_img",
@@ -937,10 +862,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/delete_sr_img$"
-    }
+    "re": "^/api/delete_sr_img$"
   },
   {
     "path": "/api/delete_user",
@@ -972,10 +894,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/delete_user$"
-    }
+    "re": "^/api/delete_user$"
   },
   {
     "path": "/api/deleteapp",
@@ -995,10 +914,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/deleteapp$"
-    }
+    "re": "^/api/deleteapp$"
   },
   {
     "path": "/api/deleteflair",
@@ -1024,10 +940,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/deleteflair$"
-    }
+    "re": "^/api/deleteflair$"
   },
   {
     "path": "/api/deleteflairtemplate",
@@ -1053,10 +966,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/deleteflairtemplate$"
-    }
+    "re": "^/api/deleteflairtemplate$"
   },
   {
     "path": "/api/distinguish",
@@ -1085,10 +995,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/distinguish$"
-    }
+    "re": "^/api/distinguish$"
   },
   {
     "path": "/api/editusertext",
@@ -1117,10 +1024,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/editusertext$"
-    }
+    "re": "^/api/editusertext$"
   },
   {
     "path": "/api/filter/filterpath",
@@ -1143,10 +1047,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/filter/filterpath$"
-    }
+    "re": "^/api/filter/filterpath$"
   },
   {
     "path": "/api/filter/filterpath",
@@ -1166,10 +1067,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/filter/filterpath$"
-    }
+    "re": "^/api/filter/filterpath$"
   },
   {
     "path": "/api/filter/filterpath",
@@ -1195,10 +1093,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/filter/filterpath$"
-    }
+    "re": "^/api/filter/filterpath$"
   },
   {
     "path": "/api/filter/filterpath",
@@ -1224,10 +1119,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/filter/filterpath$"
-    }
+    "re": "^/api/filter/filterpath$"
   },
   {
     "path": "/api/filter/filterpath/r/$srname",
@@ -1253,10 +1145,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/filter/filterpath/r/([^/]+)$"
-    },
+    "re": "^/api/filter/filterpath/r/([^/]+)$",
     "parameters": [
       "srname"
     ]
@@ -1282,10 +1171,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/filter/filterpath/r/([^/]+)$"
-    },
+    "re": "^/api/filter/filterpath/r/([^/]+)$",
     "parameters": [
       "srname"
     ]
@@ -1317,10 +1203,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/filter/filterpath/r/([^/]+)$"
-    },
+    "re": "^/api/filter/filterpath/r/([^/]+)$",
     "parameters": [
       "srname"
     ]
@@ -1358,10 +1241,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/flair$"
-    }
+    "re": "^/api/flair$"
   },
   {
     "path": "/api/flairconfig",
@@ -1399,10 +1279,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/flairconfig$"
-    }
+    "re": "^/api/flairconfig$"
   },
   {
     "path": "/api/flaircsv",
@@ -1425,10 +1302,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/flaircsv$"
-    }
+    "re": "^/api/flaircsv$"
   },
   {
     "path": "/api/flairlist",
@@ -1463,10 +1337,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/flairlist$"
-    }
+    "re": "^/api/flairlist$"
   },
   {
     "path": "/api/flairselector",
@@ -1489,10 +1360,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/flairselector$"
-    }
+    "re": "^/api/flairselector$"
   },
   {
     "path": "/api/flairtemplate",
@@ -1530,10 +1398,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/flairtemplate$"
-    }
+    "re": "^/api/flairtemplate$"
   },
   {
     "path": "/api/friend",
@@ -1574,10 +1439,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/friend$"
-    }
+    "re": "^/api/friend$"
   },
   {
     "path": "/api/hide",
@@ -1600,10 +1462,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/hide$"
-    }
+    "re": "^/api/hide$"
   },
   {
     "path": "/api/ignore_reports",
@@ -1626,10 +1485,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/ignore_reports$"
-    }
+    "re": "^/api/ignore_reports$"
   },
   {
     "path": "/api/info",
@@ -1652,10 +1508,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/info$"
-    }
+    "re": "^/api/info$"
   },
   {
     "path": "/api/leavecontributor",
@@ -1675,10 +1528,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/leavecontributor$"
-    }
+    "re": "^/api/leavecontributor$"
   },
   {
     "path": "/api/leavemoderator",
@@ -1698,10 +1548,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/leavemoderator$"
-    }
+    "re": "^/api/leavemoderator$"
   },
   {
     "path": "/api/live/$thread/accept_contributor_invite",
@@ -1724,10 +1571,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/accept_contributor_invite$"
-    },
+    "re": "^/api/live/([^/]+)/accept_contributor_invite$",
     "parameters": [
       "thread"
     ]
@@ -1753,10 +1597,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/close_thread$"
-    },
+    "re": "^/api/live/([^/]+)/close_thread$",
     "parameters": [
       "thread"
     ]
@@ -1785,10 +1626,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/delete_update$"
-    },
+    "re": "^/api/live/([^/]+)/delete_update$",
     "parameters": [
       "thread"
     ]
@@ -1826,10 +1664,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/edit$"
-    },
+    "re": "^/api/live/([^/]+)/edit$",
     "parameters": [
       "thread"
     ]
@@ -1864,10 +1699,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/invite_contributor$"
-    },
+    "re": "^/api/live/([^/]+)/invite_contributor$",
     "parameters": [
       "thread"
     ]
@@ -1893,10 +1725,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/leave_contributor$"
-    },
+    "re": "^/api/live/([^/]+)/leave_contributor$",
     "parameters": [
       "thread"
     ]
@@ -1925,10 +1754,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/report$"
-    },
+    "re": "^/api/live/([^/]+)/report$",
     "parameters": [
       "thread"
     ]
@@ -1957,10 +1783,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/rm_contributor$"
-    },
+    "re": "^/api/live/([^/]+)/rm_contributor$",
     "parameters": [
       "thread"
     ]
@@ -1989,10 +1812,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/rm_contributor_invite$"
-    },
+    "re": "^/api/live/([^/]+)/rm_contributor_invite$",
     "parameters": [
       "thread"
     ]
@@ -2027,10 +1847,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/set_contributor_permissions$"
-    },
+    "re": "^/api/live/([^/]+)/set_contributor_permissions$",
     "parameters": [
       "thread"
     ]
@@ -2059,10 +1876,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/strike_update$"
-    },
+    "re": "^/api/live/([^/]+)/strike_update$",
     "parameters": [
       "thread"
     ]
@@ -2091,10 +1905,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/([^/]+)/update$"
-    },
+    "re": "^/api/live/([^/]+)/update$",
     "parameters": [
       "thread"
     ]
@@ -2132,10 +1943,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/live/create$"
-    }
+    "re": "^/api/live/create$"
   },
   {
     "path": "/api/login",
@@ -2161,10 +1969,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/login$"
-    }
+    "re": "^/api/login$"
   },
   {
     "path": "/api/marknsfw",
@@ -2187,10 +1992,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/marknsfw$"
-    }
+    "re": "^/api/marknsfw$"
   },
   {
     "path": "/api/me.json",
@@ -2203,10 +2005,7 @@
     "describe": "Get info about the currently authenticated user.\n\nResponse includes a modhash, karma, and new mail status.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/me.json$"
-    }
+    "re": "^/api/me.json$"
   },
   {
     "path": "/api/morechildren",
@@ -2241,10 +2040,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/morechildren$"
-    }
+    "re": "^/api/morechildren$"
   },
   {
     "path": "/api/multi/$multipath",
@@ -2267,10 +2063,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)$"
-    },
+    "re": "^/api/multi/([^/]+)$",
     "parameters": [
       "multipath"
     ]
@@ -2293,10 +2086,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)$"
-    },
+    "re": "^/api/multi/([^/]+)$",
     "parameters": [
       "multipath"
     ]
@@ -2325,10 +2115,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)$"
-    },
+    "re": "^/api/multi/([^/]+)$",
     "parameters": [
       "multipath"
     ]
@@ -2357,10 +2144,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)$"
-    },
+    "re": "^/api/multi/([^/]+)$",
     "parameters": [
       "multipath"
     ]
@@ -2389,10 +2173,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)/copy$"
-    },
+    "re": "^/api/multi/([^/]+)/copy$",
     "parameters": [
       "multipath"
     ]
@@ -2415,10 +2196,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)/description$"
-    },
+    "re": "^/api/multi/([^/]+)/description$",
     "parameters": [
       "multipath"
     ]
@@ -2447,10 +2225,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)/description$"
-    },
+    "re": "^/api/multi/([^/]+)/description$",
     "parameters": [
       "multipath"
     ]
@@ -2479,10 +2254,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)/r/([^/]+)$"
-    },
+    "re": "^/api/multi/([^/]+)/r/([^/]+)$",
     "parameters": [
       "multipath",
       "srname"
@@ -2509,10 +2281,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)/r/([^/]+)$"
-    },
+    "re": "^/api/multi/([^/]+)/r/([^/]+)$",
     "parameters": [
       "multipath",
       "srname"
@@ -2545,10 +2314,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)/r/([^/]+)$"
-    },
+    "re": "^/api/multi/([^/]+)/r/([^/]+)$",
     "parameters": [
       "multipath",
       "srname"
@@ -2578,10 +2344,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/([^/]+)/rename$"
-    },
+    "re": "^/api/multi/([^/]+)/rename$",
     "parameters": [
       "multipath"
     ]
@@ -2600,10 +2363,7 @@
     "describe": "Fetch a list of multis belonging to the current user.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/multi/mine$"
-    }
+    "re": "^/api/multi/mine$"
   },
   {
     "path": "/api/needs_captcha.json",
@@ -2619,10 +2379,7 @@
     "describe": "Check whether CAPTCHAs are needed for API methods that define the\n\"captcha\" and \"iden\" parameters.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/needs_captcha.json$"
-    }
+    "re": "^/api/needs_captcha.json$"
   },
   {
     "path": "/api/new_captcha",
@@ -2642,10 +2399,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/new_captcha$"
-    }
+    "re": "^/api/new_captcha$"
   },
   {
     "path": "/api/read_all_messages",
@@ -2665,10 +2419,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/read_all_messages$"
-    }
+    "re": "^/api/read_all_messages$"
   },
   {
     "path": "/api/read_message",
@@ -2691,10 +2442,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/read_message$"
-    }
+    "re": "^/api/read_message$"
   },
   {
     "path": "/api/recommend/sr/$srnames",
@@ -2717,10 +2465,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/recommend/sr/([^/]+)$"
-    },
+    "re": "^/api/recommend/sr/([^/]+)$",
     "parameters": [
       "srnames"
     ]
@@ -2761,10 +2506,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/register$"
-    }
+    "re": "^/api/register$"
   },
   {
     "path": "/api/remove",
@@ -2790,10 +2532,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/remove$"
-    }
+    "re": "^/api/remove$"
   },
   {
     "path": "/api/removedeveloper",
@@ -2819,10 +2558,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/removedeveloper$"
-    }
+    "re": "^/api/removedeveloper$"
   },
   {
     "path": "/api/report",
@@ -2854,10 +2590,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/report$"
-    }
+    "re": "^/api/report$"
   },
   {
     "path": "/api/revokeapp",
@@ -2877,10 +2610,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/revokeapp$"
-    }
+    "re": "^/api/revokeapp$"
   },
   {
     "path": "/api/save",
@@ -2906,10 +2636,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/save$"
-    }
+    "re": "^/api/save$"
   },
   {
     "path": "/api/saved_categories.json",
@@ -2925,10 +2652,7 @@
     "describe": "Get a list of categories in which things are currently saved.\n\nSee also: /api/save.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/saved_categories.json$"
-    }
+    "re": "^/api/saved_categories.json$"
   },
   {
     "path": "/api/search_reddit_names.json",
@@ -2951,10 +2675,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/search_reddit_names.json$"
-    }
+    "re": "^/api/search_reddit_names.json$"
   },
   {
     "path": "/api/selectflair",
@@ -2989,10 +2710,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/selectflair$"
-    }
+    "re": "^/api/selectflair$"
   },
   {
     "path": "/api/sendreplies",
@@ -3018,10 +2736,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/sendreplies$"
-    }
+    "re": "^/api/sendreplies$"
   },
   {
     "path": "/api/set_contest_mode",
@@ -3050,10 +2765,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/set_contest_mode$"
-    }
+    "re": "^/api/set_contest_mode$"
   },
   {
     "path": "/api/set_force_https",
@@ -3079,10 +2791,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/set_force_https$"
-    }
+    "re": "^/api/set_force_https$"
   },
   {
     "path": "/api/set_subreddit_sticky",
@@ -3111,10 +2820,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/set_subreddit_sticky$"
-    }
+    "re": "^/api/set_subreddit_sticky$"
   },
   {
     "path": "/api/setappicon",
@@ -3140,10 +2846,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/setappicon$"
-    }
+    "re": "^/api/setappicon$"
   },
   {
     "path": "/api/setflairenabled",
@@ -3169,10 +2872,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/setflairenabled$"
-    }
+    "re": "^/api/setflairenabled$"
   },
   {
     "path": "/api/setpermissions",
@@ -3201,10 +2901,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/setpermissions$"
-    }
+    "re": "^/api/setpermissions$"
   },
   {
     "path": "/api/site_admin",
@@ -3308,10 +3005,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/site_admin$"
-    }
+    "re": "^/api/site_admin$"
   },
   {
     "path": "/api/store_visits",
@@ -3334,10 +3028,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/store_visits$"
-    }
+    "re": "^/api/store_visits$"
   },
   {
     "path": "/api/submit",
@@ -3393,10 +3084,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/submit$"
-    }
+    "re": "^/api/submit$"
   },
   {
     "path": "/api/submit_text.json",
@@ -3412,10 +3100,7 @@
     "describe": "Get the submission text for the subreddit.\n\nThis text is set by the subreddit moderators and intended to be\ndisplayed on the submission form.\n\nSee also: /api/site_admin.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/submit_text.json$"
-    }
+    "re": "^/api/submit_text.json$"
   },
   {
     "path": "/api/subreddits_by_topic.json",
@@ -3435,10 +3120,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/subreddits_by_topic.json$"
-    }
+    "re": "^/api/subreddits_by_topic.json$"
   },
   {
     "path": "/api/subscribe",
@@ -3464,10 +3146,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/subscribe$"
-    }
+    "re": "^/api/subscribe$"
   },
   {
     "path": "/api/unblock_subreddit",
@@ -3490,10 +3169,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/unblock_subreddit$"
-    }
+    "re": "^/api/unblock_subreddit$"
   },
   {
     "path": "/api/unfriend",
@@ -3522,10 +3198,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/unfriend$"
-    }
+    "re": "^/api/unfriend$"
   },
   {
     "path": "/api/unhide",
@@ -3548,10 +3221,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/unhide$"
-    }
+    "re": "^/api/unhide$"
   },
   {
     "path": "/api/unignore_reports",
@@ -3574,10 +3244,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/unignore_reports$"
-    }
+    "re": "^/api/unignore_reports$"
   },
   {
     "path": "/api/unmarknsfw",
@@ -3600,10 +3267,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/unmarknsfw$"
-    }
+    "re": "^/api/unmarknsfw$"
   },
   {
     "path": "/api/unread_message",
@@ -3626,10 +3290,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/unread_message$"
-    }
+    "re": "^/api/unread_message$"
   },
   {
     "path": "/api/unsave",
@@ -3652,10 +3313,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/unsave$"
-    }
+    "re": "^/api/unsave$"
   },
   {
     "path": "/api/update",
@@ -3693,10 +3351,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/update$"
-    }
+    "re": "^/api/update$"
   },
   {
     "path": "/api/update_email",
@@ -3728,10 +3383,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/update_email$"
-    }
+    "re": "^/api/update_email$"
   },
   {
     "path": "/api/update_password",
@@ -3760,10 +3412,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/update_password$"
-    }
+    "re": "^/api/update_password$"
   },
   {
     "path": "/api/updateapp",
@@ -3798,10 +3447,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/updateapp$"
-    }
+    "re": "^/api/updateapp$"
   },
   {
     "path": "/api/upload_sr_img",
@@ -3836,10 +3482,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/upload_sr_img$"
-    }
+    "re": "^/api/upload_sr_img$"
   },
   {
     "path": "/api/username_available.json",
@@ -3856,10 +3499,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/username_available.json$"
-    }
+    "re": "^/api/username_available.json$"
   },
   {
     "path": "/api/v1/gold/gild/$fullname",
@@ -3879,10 +3519,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/gold/gild/([^/]+)$"
-    },
+    "re": "^/api/v1/gold/gild/([^/]+)$",
     "parameters": [
       "fullname"
     ]
@@ -3908,10 +3545,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/gold/give/([^/]+)$"
-    },
+    "re": "^/api/v1/gold/give/([^/]+)$",
     "parameters": [
       "username"
     ]
@@ -3930,10 +3564,7 @@
     "describe": "Returns the identity of the user currently authenticated via OAuth.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me$"
-    }
+    "re": "^/api/v1/me$"
   },
   {
     "path": "/api/v1/me/blocked",
@@ -3968,10 +3599,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me/blocked$"
-    }
+    "re": "^/api/v1/me/blocked$"
   },
   {
     "path": "/api/v1/me/friends",
@@ -4006,10 +3634,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me/friends$"
-    }
+    "re": "^/api/v1/me/friends$"
   },
   {
     "path": "/api/v1/me/friends/$username",
@@ -4029,10 +3654,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me/friends/([^/]+)$"
-    },
+    "re": "^/api/v1/me/friends/([^/]+)$",
     "parameters": [
       "username"
     ]
@@ -4055,10 +3677,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me/friends/([^/]+)$"
-    },
+    "re": "^/api/v1/me/friends/([^/]+)$",
     "parameters": [
       "username"
     ]
@@ -4081,10 +3700,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me/friends/([^/]+)$"
-    },
+    "re": "^/api/v1/me/friends/([^/]+)$",
     "parameters": [
       "username"
     ]
@@ -4103,10 +3719,7 @@
     "describe": "Return a breakdown of subreddit karma.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me/karma$"
-    }
+    "re": "^/api/v1/me/karma$"
   },
   {
     "path": "/api/v1/me/prefs",
@@ -4126,10 +3739,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me/prefs$"
-    }
+    "re": "^/api/v1/me/prefs$"
   },
   {
     "path": "/api/v1/me/prefs",
@@ -4149,10 +3759,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me/prefs$"
-    }
+    "re": "^/api/v1/me/prefs$"
   },
   {
     "path": "/api/v1/me/trophies",
@@ -4168,10 +3775,7 @@
     "describe": "Return a list of trophies for the current user.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/me/trophies$"
-    }
+    "re": "^/api/v1/me/trophies$"
   },
   {
     "path": "/api/v1/user/$username/trophies",
@@ -4191,10 +3795,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/v1/user/([^/]+)/trophies$"
-    },
+    "re": "^/api/v1/user/([^/]+)/trophies$",
     "parameters": [
       "username"
     ]
@@ -4226,10 +3827,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/vote$"
-    }
+    "re": "^/api/vote$"
   },
   {
     "path": "/api/wiki/alloweditor/$act",
@@ -4258,10 +3856,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/wiki/alloweditor/([^/]+)$"
-    },
+    "re": "^/api/wiki/alloweditor/([^/]+)$",
     "parameters": [
       "act"
     ]
@@ -4293,10 +3888,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/wiki/alloweditor/add$"
-    }
+    "re": "^/api/wiki/alloweditor/add$"
   },
   {
     "path": "/api/wiki/alloweditor/del",
@@ -4325,10 +3917,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/wiki/alloweditor/del$"
-    }
+    "re": "^/api/wiki/alloweditor/del$"
   },
   {
     "path": "/api/wiki/edit",
@@ -4360,10 +3949,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/wiki/edit$"
-    }
+    "re": "^/api/wiki/edit$"
   },
   {
     "path": "/api/wiki/hide",
@@ -4389,10 +3975,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/wiki/hide$"
-    }
+    "re": "^/api/wiki/hide$"
   },
   {
     "path": "/api/wiki/revert",
@@ -4418,10 +4001,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/api/wiki/revert$"
-    }
+    "re": "^/api/wiki/revert$"
   },
   {
     "path": "/by_id/$names",
@@ -4441,10 +4021,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/by_id/([^/]+)$"
-    },
+    "re": "^/by_id/([^/]+)$",
     "parameters": [
       "names"
     ]
@@ -4463,10 +4040,7 @@
     "describe": "Request a CAPTCHA image given an iden.\n\nAn iden is given as the captcha field with a BAD_CAPTCHA\nerror, you should use this endpoint if you get a\nBAD_CAPTCHA error response.\n\nResponds with a 120x50 image/png which should be displayed\nto the user.\n\nThe user's response to the CAPTCHA should be sent as captcha\nalong with your request.\n\nTo request a new CAPTCHA,\nuse /api/new_captcha.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/captcha/([^/]+)$"
-    },
+    "re": "^/captcha/([^/]+)$",
     "parameters": [
       "iden"
     ]
@@ -4507,10 +4081,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/comments/([^/]+)$"
-    },
+    "re": "^/comments/([^/]+)$",
     "parameters": [
       "article"
     ]
@@ -4551,10 +4122,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/controversial$"
-    }
+    "re": "^/controversial$"
   },
   {
     "path": "/hot",
@@ -4589,10 +4157,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/hot$"
-    }
+    "re": "^/hot$"
   },
   {
     "path": "/live/$thread",
@@ -4630,10 +4195,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/live/([^/]+)$"
-    },
+    "re": "^/live/([^/]+)$",
     "parameters": [
       "thread"
     ]
@@ -4652,10 +4214,7 @@
     "describe": "Get some basic information about the live thread.\n\nSee also: /api/live/thread/edit.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/live/([^/]+)/about.json$"
-    },
+    "re": "^/live/([^/]+)/about.json$",
     "parameters": [
       "thread"
     ]
@@ -4674,10 +4233,7 @@
     "describe": "Get a list of users that contribute to this thread.\n\nSee also: /api/live/thread/invite_contributor, and\n/api/live/thread/rm_contributor.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/live/([^/]+)/contributors.json$"
-    },
+    "re": "^/live/([^/]+)/contributors.json$",
     "parameters": [
       "thread"
     ]
@@ -4715,10 +4271,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/live/([^/]+)/discussions$"
-    },
+    "re": "^/live/([^/]+)/discussions$",
     "parameters": [
       "thread"
     ]
@@ -4762,10 +4315,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/message/([^/]+)$"
-    },
+    "re": "^/message/([^/]+)$",
     "parameters": [
       "where"
     ]
@@ -4809,10 +4359,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/message/inbox$"
-    }
+    "re": "^/message/inbox$"
   },
   {
     "path": "/message/sent",
@@ -4853,10 +4400,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/message/sent$"
-    }
+    "re": "^/message/sent$"
   },
   {
     "path": "/message/unread",
@@ -4897,10 +4441,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/message/unread$"
-    }
+    "re": "^/message/unread$"
   },
   {
     "path": "/new",
@@ -4935,10 +4476,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/new$"
-    }
+    "re": "^/new$"
   },
   {
     "path": "/prefs/$where",
@@ -4973,10 +4511,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/prefs/([^/]+)$"
-    },
+    "re": "^/prefs/([^/]+)$",
     "parameters": [
       "where"
     ]
@@ -5014,10 +4549,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/prefs/blocked$"
-    }
+    "re": "^/prefs/blocked$"
   },
   {
     "path": "/prefs/friends",
@@ -5052,10 +4584,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/prefs/friends$"
-    }
+    "re": "^/prefs/friends$"
   },
   {
     "path": "/r/$subreddit/$sort",
@@ -5093,10 +4622,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/([^/]+)$",
     "parameters": [
       "subreddit",
       "sort"
@@ -5116,10 +4642,7 @@
     "describe": "Return information about the subreddit.\n\nData includes the subscriber count, description, and header image.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about.json$"
-    },
+    "re": "^/r/([^/]+)/about.json$",
     "parameters": [
       "subreddit"
     ]
@@ -5160,10 +4683,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/about/([^/]+)$",
     "parameters": [
       "subreddit",
       "location"
@@ -5205,10 +4725,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/about/([^/]+)$",
     "parameters": [
       "subreddit",
       "where"
@@ -5250,10 +4767,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/banned$"
-    },
+    "re": "^/r/([^/]+)/about/banned$",
     "parameters": [
       "subreddit"
     ]
@@ -5294,10 +4808,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/contributors$"
-    },
+    "re": "^/r/([^/]+)/about/contributors$",
     "parameters": [
       "subreddit"
     ]
@@ -5323,10 +4834,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/edit.json$"
-    },
+    "re": "^/r/([^/]+)/about/edit.json$",
     "parameters": [
       "subreddit"
     ]
@@ -5367,10 +4875,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/edited$"
-    },
+    "re": "^/r/([^/]+)/about/edited$",
     "parameters": [
       "subreddit"
     ]
@@ -5414,10 +4919,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/log$"
-    },
+    "re": "^/r/([^/]+)/about/log$",
     "parameters": [
       "subreddit"
     ]
@@ -5458,10 +4960,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/moderators$"
-    },
+    "re": "^/r/([^/]+)/about/moderators$",
     "parameters": [
       "subreddit"
     ]
@@ -5502,10 +5001,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/modqueue$"
-    },
+    "re": "^/r/([^/]+)/about/modqueue$",
     "parameters": [
       "subreddit"
     ]
@@ -5546,10 +5042,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/reports$"
-    },
+    "re": "^/r/([^/]+)/about/reports$",
     "parameters": [
       "subreddit"
     ]
@@ -5590,10 +5083,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/spam$"
-    },
+    "re": "^/r/([^/]+)/about/spam$",
     "parameters": [
       "subreddit"
     ]
@@ -5634,10 +5124,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/unmoderated$"
-    },
+    "re": "^/r/([^/]+)/about/unmoderated$",
     "parameters": [
       "subreddit"
     ]
@@ -5678,10 +5165,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/wikibanned$"
-    },
+    "re": "^/r/([^/]+)/about/wikibanned$",
     "parameters": [
       "subreddit"
     ]
@@ -5722,10 +5206,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/about/wikicontributors$"
-    },
+    "re": "^/r/([^/]+)/about/wikicontributors$",
     "parameters": [
       "subreddit"
     ]
@@ -5748,10 +5229,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/accept_moderator_invite$"
-    },
+    "re": "^/r/([^/]+)/api/accept_moderator_invite$",
     "parameters": [
       "subreddit"
     ]
@@ -5780,10 +5258,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/clearflairtemplates$"
-    },
+    "re": "^/r/([^/]+)/api/clearflairtemplates$",
     "parameters": [
       "subreddit"
     ]
@@ -5809,10 +5284,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/delete_sr_header$"
-    },
+    "re": "^/r/([^/]+)/api/delete_sr_header$",
     "parameters": [
       "subreddit"
     ]
@@ -5841,10 +5313,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/delete_sr_img$"
-    },
+    "re": "^/r/([^/]+)/api/delete_sr_img$",
     "parameters": [
       "subreddit"
     ]
@@ -5873,10 +5342,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/deleteflair$"
-    },
+    "re": "^/r/([^/]+)/api/deleteflair$",
     "parameters": [
       "subreddit"
     ]
@@ -5905,10 +5371,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/deleteflairtemplate$"
-    },
+    "re": "^/r/([^/]+)/api/deleteflairtemplate$",
     "parameters": [
       "subreddit"
     ]
@@ -5946,10 +5409,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/flair$"
-    },
+    "re": "^/r/([^/]+)/api/flair$",
     "parameters": [
       "subreddit"
     ]
@@ -5990,10 +5450,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/flairconfig$"
-    },
+    "re": "^/r/([^/]+)/api/flairconfig$",
     "parameters": [
       "subreddit"
     ]
@@ -6019,10 +5476,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/flaircsv$"
-    },
+    "re": "^/r/([^/]+)/api/flaircsv$",
     "parameters": [
       "subreddit"
     ]
@@ -6060,10 +5514,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/flairlist$"
-    },
+    "re": "^/r/([^/]+)/api/flairlist$",
     "parameters": [
       "subreddit"
     ]
@@ -6089,10 +5540,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/flairselector$"
-    },
+    "re": "^/r/([^/]+)/api/flairselector$",
     "parameters": [
       "subreddit"
     ]
@@ -6133,10 +5581,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/flairtemplate$"
-    },
+    "re": "^/r/([^/]+)/api/flairtemplate$",
     "parameters": [
       "subreddit"
     ]
@@ -6162,10 +5607,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/info$"
-    },
+    "re": "^/r/([^/]+)/api/info$",
     "parameters": [
       "subreddit"
     ]
@@ -6203,10 +5645,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/selectflair$"
-    },
+    "re": "^/r/([^/]+)/api/selectflair$",
     "parameters": [
       "subreddit"
     ]
@@ -6235,10 +5674,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/setflairenabled$"
-    },
+    "re": "^/r/([^/]+)/api/setflairenabled$",
     "parameters": [
       "subreddit"
     ]
@@ -6270,10 +5706,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/setpermissions$"
-    },
+    "re": "^/r/([^/]+)/api/setpermissions$",
     "parameters": [
       "subreddit"
     ]
@@ -6292,10 +5725,7 @@
     "describe": "Get the submission text for the subreddit.\n\nThis text is set by the subreddit moderators and intended to be\ndisplayed on the submission form.\n\nSee also: /api/site_admin.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/submit_text.json$"
-    },
+    "re": "^/r/([^/]+)/api/submit_text.json$",
     "parameters": [
       "subreddit"
     ]
@@ -6330,10 +5760,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/subreddit_stylesheet$"
-    },
+    "re": "^/r/([^/]+)/api/subreddit_stylesheet$",
     "parameters": [
       "subreddit"
     ]
@@ -6371,10 +5798,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/upload_sr_img$"
-    },
+    "re": "^/r/([^/]+)/api/upload_sr_img$",
     "parameters": [
       "subreddit"
     ]
@@ -6406,10 +5830,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/wiki/alloweditor/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/api/wiki/alloweditor/([^/]+)$",
     "parameters": [
       "subreddit",
       "act"
@@ -6442,10 +5863,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/wiki/alloweditor/add$"
-    },
+    "re": "^/r/([^/]+)/api/wiki/alloweditor/add$",
     "parameters": [
       "subreddit"
     ]
@@ -6477,10 +5895,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/wiki/alloweditor/del$"
-    },
+    "re": "^/r/([^/]+)/api/wiki/alloweditor/del$",
     "parameters": [
       "subreddit"
     ]
@@ -6515,10 +5930,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/wiki/edit$"
-    },
+    "re": "^/r/([^/]+)/api/wiki/edit$",
     "parameters": [
       "subreddit"
     ]
@@ -6547,10 +5959,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/wiki/hide$"
-    },
+    "re": "^/r/([^/]+)/api/wiki/hide$",
     "parameters": [
       "subreddit"
     ]
@@ -6579,10 +5988,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/api/wiki/revert$"
-    },
+    "re": "^/r/([^/]+)/api/wiki/revert$",
     "parameters": [
       "subreddit"
     ]
@@ -6623,10 +6029,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/comments/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/comments/([^/]+)$",
     "parameters": [
       "subreddit",
       "article"
@@ -6668,10 +6071,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/controversial$"
-    },
+    "re": "^/r/([^/]+)/controversial$",
     "parameters": [
       "subreddit"
     ]
@@ -6709,10 +6109,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/hot$"
-    },
+    "re": "^/r/([^/]+)/hot$",
     "parameters": [
       "subreddit"
     ]
@@ -6750,10 +6147,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/new$"
-    },
+    "re": "^/r/([^/]+)/new$",
     "parameters": [
       "subreddit"
     ]
@@ -6772,10 +6166,7 @@
     "describe": "The Serendipity button",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/random$"
-    },
+    "re": "^/r/([^/]+)/random$",
     "parameters": [
       "subreddit"
     ]
@@ -6828,10 +6219,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/search$"
-    },
+    "re": "^/r/([^/]+)/search$",
     "parameters": [
       "subreddit"
     ]
@@ -6850,10 +6238,7 @@
     "describe": "Redirect to the subreddit's stylesheet if one exists.\n\nSee also: /api/subreddit_stylesheet.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/stylesheet$"
-    },
+    "re": "^/r/([^/]+)/stylesheet$",
     "parameters": [
       "subreddit"
     ]
@@ -6894,10 +6279,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/top$"
-    },
+    "re": "^/r/([^/]+)/top$",
     "parameters": [
       "subreddit"
     ]
@@ -6926,10 +6308,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/wiki/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/wiki/([^/]+)$",
     "parameters": [
       "subreddit",
       "page"
@@ -6968,10 +6347,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/wiki/discussions/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/wiki/discussions/([^/]+)$",
     "parameters": [
       "subreddit",
       "page"
@@ -6991,10 +6367,7 @@
     "describe": "Retrieve a list of wiki pages in this subreddit",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/wiki/pages$"
-    },
+    "re": "^/r/([^/]+)/wiki/pages$",
     "parameters": [
       "subreddit"
     ]
@@ -7029,10 +6402,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/wiki/revisions$"
-    },
+    "re": "^/r/([^/]+)/wiki/revisions$",
     "parameters": [
       "subreddit"
     ]
@@ -7070,10 +6440,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/wiki/revisions/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/wiki/revisions/([^/]+)$",
     "parameters": [
       "subreddit",
       "page"
@@ -7097,10 +6464,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/wiki/settings/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/wiki/settings/([^/]+)$",
     "parameters": [
       "subreddit",
       "page"
@@ -7133,10 +6497,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/r/([^/]+)/wiki/settings/([^/]+)$"
-    },
+    "re": "^/r/([^/]+)/wiki/settings/([^/]+)$",
     "parameters": [
       "subreddit",
       "page"
@@ -7156,10 +6517,7 @@
     "describe": "The Serendipity button",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/random$"
-    }
+    "re": "^/random$"
   },
   {
     "path": "/search",
@@ -7209,10 +6567,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/search$"
-    }
+    "re": "^/search$"
   },
   {
     "path": "/stylesheet",
@@ -7228,10 +6583,7 @@
     "describe": "Redirect to the subreddit's stylesheet if one exists.\n\nSee also: /api/subreddit_stylesheet.",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/stylesheet$"
-    }
+    "re": "^/stylesheet$"
   },
   {
     "path": "/subreddits/$where",
@@ -7266,10 +6618,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/subreddits/([^/]+)$"
-    },
+    "re": "^/subreddits/([^/]+)$",
     "parameters": [
       "where"
     ]
@@ -7307,10 +6656,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/subreddits/mine/([^/]+)$"
-    },
+    "re": "^/subreddits/mine/([^/]+)$",
     "parameters": [
       "where"
     ]
@@ -7348,10 +6694,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/subreddits/mine/contributor$"
-    }
+    "re": "^/subreddits/mine/contributor$"
   },
   {
     "path": "/subreddits/mine/moderator",
@@ -7386,10 +6729,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/subreddits/mine/moderator$"
-    }
+    "re": "^/subreddits/mine/moderator$"
   },
   {
     "path": "/subreddits/mine/subscriber",
@@ -7424,10 +6764,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/subreddits/mine/subscriber$"
-    }
+    "re": "^/subreddits/mine/subscriber$"
   },
   {
     "path": "/subreddits/new",
@@ -7462,10 +6799,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/subreddits/new$"
-    }
+    "re": "^/subreddits/new$"
   },
   {
     "path": "/subreddits/popular",
@@ -7500,10 +6834,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/subreddits/popular$"
-    }
+    "re": "^/subreddits/popular$"
   },
   {
     "path": "/subreddits/search",
@@ -7541,10 +6872,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/subreddits/search$"
-    }
+    "re": "^/subreddits/search$"
   },
   {
     "path": "/top",
@@ -7582,10 +6910,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/top$"
-    }
+    "re": "^/top$"
   },
   {
     "path": "/user/$username/$where",
@@ -7629,10 +6954,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/([^/]+)$"
-    },
+    "re": "^/user/([^/]+)/([^/]+)$",
     "parameters": [
       "username",
       "where"
@@ -7656,10 +6978,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/about.json$"
-    },
+    "re": "^/user/([^/]+)/about.json$",
     "parameters": [
       "username"
     ]
@@ -7706,10 +7025,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/comments$"
-    },
+    "re": "^/user/([^/]+)/comments$",
     "parameters": [
       "username"
     ]
@@ -7756,10 +7072,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/disliked$"
-    },
+    "re": "^/user/([^/]+)/disliked$",
     "parameters": [
       "username"
     ]
@@ -7806,10 +7119,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/gilded$"
-    },
+    "re": "^/user/([^/]+)/gilded$",
     "parameters": [
       "username"
     ]
@@ -7856,10 +7166,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/hidden$"
-    },
+    "re": "^/user/([^/]+)/hidden$",
     "parameters": [
       "username"
     ]
@@ -7906,10 +7213,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/liked$"
-    },
+    "re": "^/user/([^/]+)/liked$",
     "parameters": [
       "username"
     ]
@@ -7956,10 +7260,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/overview$"
-    },
+    "re": "^/user/([^/]+)/overview$",
     "parameters": [
       "username"
     ]
@@ -8006,10 +7307,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/saved$"
-    },
+    "re": "^/user/([^/]+)/saved$",
     "parameters": [
       "username"
     ]
@@ -8056,10 +7354,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/user/([^/]+)/submitted$"
-    },
+    "re": "^/user/([^/]+)/submitted$",
     "parameters": [
       "username"
     ]
@@ -8088,10 +7383,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/wiki/([^/]+)$"
-    },
+    "re": "^/wiki/([^/]+)$",
     "parameters": [
       "page"
     ]
@@ -8129,10 +7421,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/wiki/discussions/([^/]+)$"
-    },
+    "re": "^/wiki/discussions/([^/]+)$",
     "parameters": [
       "page"
     ]
@@ -8151,10 +7440,7 @@
     "describe": "Retrieve a list of wiki pages in this subreddit",
     "args": {},
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/wiki/pages$"
-    }
+    "re": "^/wiki/pages$"
   },
   {
     "path": "/wiki/revisions",
@@ -8186,10 +7472,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/wiki/revisions$"
-    }
+    "re": "^/wiki/revisions$"
   },
   {
     "path": "/wiki/revisions/$page",
@@ -8224,10 +7507,7 @@
       }
     },
     "isListing": true,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/wiki/revisions/([^/]+)$"
-    },
+    "re": "^/wiki/revisions/([^/]+)$",
     "parameters": [
       "page"
     ]
@@ -8250,10 +7530,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/wiki/settings/([^/]+)$"
-    },
+    "re": "^/wiki/settings/([^/]+)$",
     "parameters": [
       "page"
     ]
@@ -8285,10 +7562,7 @@
       }
     },
     "isListing": false,
-    "re": {
-      "_type": "RegExp",
-      "source": "^/wiki/settings/([^/]+)$"
-    },
+    "re": "^/wiki/settings/([^/]+)$",
     "parameters": [
       "page"
     ]
