@@ -3,10 +3,10 @@
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./util').ticker;
-var Refresh = require('../lib/Refresh');
+var Request = require('../lib/Request');
 
 
-describe('Refresh', function () {
+describe('Request', function () {
 
   function getScope () {
     return nock('https://www.reddit.com/').get('/comments/test');
@@ -14,18 +14,18 @@ describe('Refresh', function () {
 
 
   it('should throw error with missing options', function () {
-    expect(Refresh).to.throwError(/Refresh requires the "options" argument/);
+    expect(Request).to.throwError(/Request requires the "options" argument/);
     expect(function () {
-      new Refresh({}); // jshint ignore:line
-    }).to.throwError(/Refresh requires the "url" option/);
+      new Request({}); // jshint ignore:line
+    }).to.throwError(/Request requires the "url" option/);
   });
 
 
   it('should emit error on missing options on fetch', function (done) {
-    var request = new Refresh({ url: 'initial' });
+    var request = new Request({ url: 'initial' });
     request.options.url = null;
     request.on('error', function (e) {
-      expect(e.message).to.match(/Refresh requires the "url" option/);
+      expect(e.message).to.match(/Request requires the "url" option/);
       done();
     });
     request.fetch();
@@ -43,7 +43,7 @@ describe('Refresh', function () {
 
     scope = getScope().times(3).reply(200, {});
 
-    request = new Refresh({
+    request = new Request({
       interval: 10,
       url: 'https://www.reddit.com/comments/test'
     });
@@ -53,7 +53,7 @@ describe('Refresh', function () {
     });
     request.on('response', tick);
 
-    request.fetch();
+    request.poll();
   });
 
 
@@ -68,13 +68,13 @@ describe('Refresh', function () {
 
     scope = getScope().reply(500);
 
-    request = new Refresh({
+    request = new Request({
       interval: 10,
       url: 'https://www.reddit.com/comments/test'
     });
 
     request.on('error', function (err) {
-      expect(err.message).to.match(/^Refresh: request responded with/);
+      expect(err.message).to.match(/^Request: request responded with/);
       tick();
     });
 
@@ -99,14 +99,14 @@ describe('Refresh', function () {
 
     scope = getScope().times(3).reply(500);
 
-    request = new Refresh({
+    request = new Request({
       interval: 10,
       url: 'https://www.reddit.com/comments/test'
     });
 
     request.on('error', tick);
 
-    request.fetch();
+    request.poll();
   });
 
 
@@ -114,7 +114,7 @@ describe('Refresh', function () {
     var tick, scope, request;
 
     tick = ticker(2, function () {
-      expect(request._active).to.be(false);
+      expect(request.isActive()).to.be(false);
       scope.done();
       done();
     });
@@ -124,7 +124,7 @@ describe('Refresh', function () {
       .get('/comments/test')
       .reply(500);
 
-    request = new Refresh({
+    request = new Request({
       interval: 10,
       url: 'https://www.reddit.com/comments/test',
       stopOnFail: true
@@ -133,7 +133,7 @@ describe('Refresh', function () {
     request.on('data', tick);
     request.on('error', tick);
 
-    request.fetch();
+    request.poll();
   });
 
 });

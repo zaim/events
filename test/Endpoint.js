@@ -61,7 +61,7 @@ describe('Endpoint', function () {
     });
 
     endpoint.setTokenEmitter(token);
-    endpoint.fetch();
+    endpoint.poll();
   });
 
 
@@ -89,7 +89,7 @@ describe('Endpoint', function () {
 
     endpoint.on('response', checkToken);
     endpoint.setTokenEmitter(token);
-    endpoint.fetch();
+    endpoint.poll();
 
     emitToken();
 

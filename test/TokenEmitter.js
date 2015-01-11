@@ -83,7 +83,7 @@ describe('TokenEmitter', function () {
     emitter.on('response', tick);
 
     start = Date.now();
-    emitter.fetch();
+    emitter.poll();
   });
 
 
