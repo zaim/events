@@ -1,6 +1,6 @@
 /* global describe, it */
 
-var debug = require('debug')('res:test:endpoint');
+var debug = require('debug')('reddit-emit:test:endpoint');
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./util').ticker;

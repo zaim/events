@@ -1,4 +1,4 @@
-var debug = require('debug')('res:test');
+var debug = require('debug')('reddit-emit:test');
 
 function ticker (count, done, tag) {
   var total = count;
