@@ -1,10 +1,9 @@
 var lodash = require('lodash');
-var rddt = require('../');
+var Engine = require('../');
 var count = 0;
 
 var secrets;
-var tokens;
-var thread;
+var engine;
 
 try {
   secrets = require('./secrets.json');
@@ -19,24 +18,15 @@ try {
   process.exit(1);
 }
 
-tokens = new rddt.TokenEmitter({
-  url: 'https://www.reddit.com/api/v1/access_token',
-  id: secrets.clientID,
-  secret: secrets.clientSecret
-});
+engine = new Engine(secrets);
+engine.on('error', printError);
+engine.start();
 
-thread = new rddt.Endpoint({
-  url: 'https://oauth.reddit.com/r/javascript/new.json',
-  interval: 5000
-});
-
-tokens.on('error', printError);
-tokens.fetch();
-
-thread.on('data', printPosts);
-thread.on('error', printError);
-thread.setTokenEmitter(tokens);
-thread.poll();
+engine
+  .endpoint('/r/javascript/new')
+  .on('data', printPosts)
+  .on('error', printError)
+  .poll(5000);
 
 function printPosts (thing) {
   console.log('---------- ' + (++count) + ' ----------');
@@ -46,9 +36,9 @@ function printPosts (thing) {
       console.log((i + 1) + ') ' + post.title);
     });
 
-  if (count === 10) {
-    thread.stop();
-    tokens.stop();
+  if (count === 5) {
+    console.error('---------- STOP ----------');
+    engine.stop();
   }
 }
 
