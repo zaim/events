@@ -1,12 +1,13 @@
 var debug = require('debug')('reddit-emit:test');
 
-function ticker (count, done, tag) {
+function ticker (count, done, id) {
   var total = count;
-  tag = tag ? tag + ':' : '';
-  return function () {
-    debug(tag + 'tick ' + count);
+  id = id || '';
+  return function (tag) {
+    tag = tag || '';
+    debug('tick', id, tag);
     if (--count === 0) {
-      debug(tag + 'boom 0');
+      debug('boom', id);
       done();
     }
     if (count < 0) {
