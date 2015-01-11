@@ -36,7 +36,7 @@ tokens.fetch();
 thread.on('data', printPosts);
 thread.on('error', printError);
 thread.setTokenEmitter(tokens);
-thread.fetch();
+thread.poll();
 
 function printPosts (thing) {
   console.log('---------- ' + (++count) + ' ----------');
