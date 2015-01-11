@@ -3,10 +3,10 @@
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./util').ticker;
-var TokenEmitter = require('../lib/TokenEmitter');
+var AccessToken = require('../lib/AccessToken');
 
 
-describe('TokenEmitter', function () {
+describe('AccessToken', function () {
 
   it('should send correct request', function (done) {
     var tick, tokens, scope, emitter;
@@ -27,7 +27,7 @@ describe('TokenEmitter', function () {
       .post('/api/v1/access_token')
       .reply(200, tokens);
 
-    emitter = new TokenEmitter({
+    emitter = new AccessToken({
       url: 'https://www.reddit.com/api/v1/access_token',
       id: 'testclientid',
       secret: 'testclientsecret',
@@ -73,7 +73,7 @@ describe('TokenEmitter', function () {
       .post('/api/v1/access_token')
       .reply(200, { expires_in: 9 }); // this interval should be ignored
 
-    emitter = new TokenEmitter({
+    emitter = new AccessToken({
       url: 'https://www.reddit.com/api/v1/access_token',
       id: 'testclientid',
       secret: 'testclientsecret',
@@ -89,8 +89,8 @@ describe('TokenEmitter', function () {
 
   it('should throw error on missing options', function () {
     expect(function () {
-      TokenEmitter.call({});
-    }).to.throwError(/^TokenEmitter requires "id" and "secret" options/);
+      AccessToken.call({});
+    }).to.throwError(/^AccessToken requires "id" and "secret" options/);
   });
 
 });
