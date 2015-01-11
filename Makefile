@@ -1,10 +1,10 @@
 test:
 	mocha
 
-api: api.json
+api: lib/api.json
 	jshint $<
 
-api.json:
+lib/api.json:
 	node scripts/generate.js > $@
 
 .PHONY: test api
