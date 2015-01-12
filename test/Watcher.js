@@ -38,4 +38,30 @@ describe('Watcher', function () {
     mutations.forEach(source.emit.bind(source, 'data'));
   });
 
+
+  it('should not emit operations when data is the same', function (done) {
+    var mutations, tick, source, watcher;
+
+    mutations = [
+      { k:'key1', changed:false },
+      { k:'key1', changed:false },
+      { k:'key1', changed:false },
+      { k:'key1', changed:false }
+    ];
+
+    tick = ticker(mutations.length, done);
+
+    source = new Emitter();
+
+    watcher = new Watcher(source);
+
+    watcher.on('changed', function () {
+      expect().fail('changed event should not fire');
+    });
+
+    source.on('data', tick);
+
+    mutations.forEach(source.emit.bind(source, 'data'));
+  });
+
 });
