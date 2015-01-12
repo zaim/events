@@ -4,7 +4,7 @@ var util = require('util');
 var debug = require('debug')('reddit-emit:test:engine');
 var expect = require('expect.js');
 var nock = require('nock');
-var ticker = require('./util').ticker;
+var ticker = require('./_util').ticker;
 var Engine = require('../lib/core');
 var Endpoint = Engine.Endpoint;
 

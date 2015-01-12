@@ -1,7 +1,7 @@
 /* global describe, it */
 
 var expect = require('expect.js');
-var ticker = require('./util').ticker;
+var ticker = require('./_util').ticker;
 var ValueEmitter = require('../lib/core').ValueEmitter;
 
 

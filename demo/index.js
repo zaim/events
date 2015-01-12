@@ -1,9 +1,12 @@
+// TODO: a better demo :)
+
 var lodash = require('lodash');
 var Engine = require('../');
 var count = 0;
 
 var secrets;
 var engine;
+var id = process.argv.slice(2)[0] || '1byn1l';
 
 try {
   secrets = require('./secrets.json');
@@ -22,18 +25,24 @@ engine = new Engine(secrets);
 engine.on('error', printError);
 engine.start();
 
+console.log('ID: ' + id + '\n');
+
 engine
-  .endpoint('/r/javascript/new')
-  .on('data', printPosts)
+  .endpoint('/comments/' + id + '.json')
+  .query({ sort: 'new', limit: 25 })
+  .on('data', printComments)
   .on('error', printError)
   .poll(5000);
 
-function printPosts (thing) {
-  console.log('---------- ' + (++count) + ' ----------');
-  lodash(thing.data.children)
-    .pluck('data')
-    .each(function (post, i) {
-      console.log((i + 1) + ') ' + post.title);
+
+function printComments (thing) {
+  console.log('---------- ' + (++count) + ' ----------\n');
+  lodash(thing.comments.children)
+    .filter(function (c) {
+      return c.kind === 't1';
+    })
+    .each(function (c, i) {
+      console.log((i + 1) + ') ' + c.author + ': ' + c.body + '\n');
     });
 
   if (count === 5) {
