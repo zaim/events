@@ -2,4 +2,4 @@
 
 Library that uses event emitters for realtime Reddit API consumption.
 
-This library is still experimental and under heavy development.
+This library experimental and is under heavy development.
