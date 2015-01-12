@@ -2,7 +2,7 @@
 
 var expect = require('expect.js');
 var ticker = require('./util').ticker;
-var ValueEmitter = require('../lib/ValueEmitter');
+var ValueEmitter = require('../').ValueEmitter;
 
 
 describe('ValueEmitter', function () {

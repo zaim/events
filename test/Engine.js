@@ -4,7 +4,7 @@ var debug = require('debug')('reddit-emit:test:engine');
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./util').ticker;
-var Engine = require('../lib/Engine');
+var Engine = require('../');
 
 
 describe('Engine', function () {

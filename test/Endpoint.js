@@ -4,8 +4,9 @@ var debug = require('debug')('reddit-emit:test:endpoint');
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./util').ticker;
-var ValueEmitter = require('../lib/ValueEmitter');
-var Endpoint = require('../lib/Endpoint');
+var Engine = require('../');
+var ValueEmitter = Engine.ValueEmitter;
+var Endpoint = Engine.Endpoint;
 
 
 describe('Endpoint', function () {

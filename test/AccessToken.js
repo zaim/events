@@ -3,7 +3,7 @@
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./util').ticker;
-var AccessToken = require('../lib/AccessToken');
+var AccessToken = require('../').AccessToken;
 
 
 describe('AccessToken', function () {

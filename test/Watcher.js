@@ -3,8 +3,8 @@
 //var debug = require('debug')('reddit-emit:test:watcher');
 var expect = require('expect.js');
 var Emitter = require('eventemitter3');
-var Watcher = require('../lib/Watcher');
 var ticker = require('./util').ticker;
+var Watcher = require('../').Watcher;
 
 
 describe('Watcher', function () {
