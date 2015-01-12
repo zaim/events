@@ -4,7 +4,7 @@
 var expect = require('expect.js');
 var jiff = require('jiff');
 var Emitter = require('eventemitter3');
-var Watcher = require('../').Watcher;
+var Watcher = require('../lib/core').Watcher;
 var ticker = require('./util').ticker;
 
 

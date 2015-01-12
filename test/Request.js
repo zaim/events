@@ -3,7 +3,7 @@
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./util').ticker;
-var Request = require('../').Request;
+var Request = require('../lib/core').Request;
 
 
 describe('Request', function () {

@@ -5,7 +5,7 @@ var debug = require('debug')('reddit-emit:test:engine');
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./util').ticker;
-var Engine = require('../');
+var Engine = require('../lib/core');
 var Endpoint = Engine.Endpoint;
 
 
@@ -173,13 +173,27 @@ describe('Engine', function () {
 
     it('should use correct custom subclass', function () {
       function Custom () { Endpoint.apply(this, arguments); }
+      function Global () { Endpoint.apply(this, arguments); }
+
       util.inherits(Custom, Endpoint);
+      util.inherits(Global, Endpoint);
+
+      Engine.register(/\/r\/[^\/]+\/(new|hot|top)\.json/, Global);
       engine.register(/\/r\/[^\/]+\/comments\/[^\/]+\.json/, Custom);
-      var custom = engine.endpoint('/r/javascript/comments/id123.json');
-      var normal = engine.endpoint('/r/nothread/new.json');
-      expect(custom).to.be.a(Custom);
+
+      var thread = engine.endpoint('/r/javascript/comments/id123.json');
+      var subnew = engine.endpoint('/r/programming/new.json');
+      var subhot = engine.endpoint('/r/programming/hot.json');
+      var subtop = engine.endpoint('/r/programming/top.json');
+      var normal = engine.endpoint('/about/me.json');
+
+      expect(thread).to.be.a(Custom);
+      expect(subnew).to.be.a(Global);
+      expect(subhot).to.be.a(Global);
+      expect(subtop).to.be.a(Global);
       expect(normal).to.be.an(Endpoint);
       expect(normal).to.not.be.a(Custom);
+      expect(normal).to.not.be.a(Global);
     });
 
   });
