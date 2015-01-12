@@ -24,7 +24,6 @@
     "eventemitter3": "^0.1.6",
     "jiff": "^0.7.0",
     "lodash": "^2.4.1",
-    "qs": "git://github.com/zaim/qs#sort-keys",
     "request": "^2.51.0"
   },
   "devDependencies": {
