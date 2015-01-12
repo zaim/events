@@ -2,38 +2,40 @@
 
 //var debug = require('debug')('reddit-emit:test:watcher');
 var expect = require('expect.js');
+var jiff = require('jiff');
 var Emitter = require('eventemitter3');
-var ticker = require('./util').ticker;
 var Watcher = require('../').Watcher;
+var ticker = require('./util').ticker;
 
 
 describe('Watcher', function () {
 
   it('should emit operations', function (done) {
-    var data, tick, source, watcher;
+    var i = 0, initial, mutations, tick, source, watcher;
 
-    data = [
-      [{ k: 'initial' }],
-      [{ k: 'change-1' }],
-      [{ k: 'change-2' }],
-      [{ k: 'change-3' }]
+    initial = { k: 'initial' };
+
+    mutations = [
+      initial,
+      { k:'change-1', arr:[1], add:'prop' },
+      { k:'change-2', arr:[1,2] },
+      { k:'change-3', arr:[1,2,3], extra:'value' },
+      { k:'change-3', arr:[1,2], extra:'new' }
     ];
 
-    tick = ticker((data.length - 1) * 3, done);
+    tick = ticker(mutations.length - 1, done);
 
     source = new Emitter();
 
     watcher = new Watcher(source);
 
-    watcher.on('op', function (op) {
-      expect(op).to.have.keys('op', 'path');
-      if (op.value) {
-        expect(op.value).to.have.keys('k');
-      }
+    watcher.on('changed', function (patch) {
+      initial = jiff.patch(patch, initial);
+      expect(initial).to.eql(mutations[++i]);
       tick();
     });
 
-    data.forEach(source.emit.bind(source, 'data'));
+    mutations.forEach(source.emit.bind(source, 'data'));
   });
 
 });
