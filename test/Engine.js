@@ -1,10 +1,12 @@
 /* global describe, it, beforeEach, afterEach */
 
+var util = require('util');
 var debug = require('debug')('reddit-emit:test:engine');
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./util').ticker;
 var Engine = require('../');
+var Endpoint = Engine.Endpoint;
 
 
 describe('Engine', function () {
@@ -166,6 +168,18 @@ describe('Engine', function () {
         token.token_type + ' ' + token.access_token;
       ep.fetch();
       ep.emit('error', error);
+    });
+
+
+    it('should use correct custom subclass', function () {
+      function Custom () { Endpoint.apply(this, arguments); }
+      util.inherits(Custom, Endpoint);
+      engine.register(/\/r\/[^\/]+\/comments\/[^\/]+\.json/, Custom);
+      var custom = engine.endpoint('/r/javascript/comments/id123.json');
+      var normal = engine.endpoint('/r/nothread/new.json');
+      expect(custom).to.be.a(Custom);
+      expect(normal).to.be.an(Endpoint);
+      expect(normal).to.not.be.a(Custom);
     });
 
   });
