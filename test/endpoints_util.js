@@ -30,6 +30,8 @@ describe('endpoints/util', function () {
         expect(thing).to.be.an('object');
         expect(thing.kind).to.be('Listing');
         expect(thing.children).to.be.an(Array);
+        expect(thing).to.have.keys('kind', 'children', 'modhash',
+                                   'before', 'after');
       });
       parsed[1].children.forEach(function __checkComment (comment) {
         expect(comment.kind).to.match(/t1|more/);
