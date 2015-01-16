@@ -114,7 +114,7 @@ describe('Request', function () {
     var tick, scope, request;
 
     tick = ticker(2, function () {
-      expect(request.isActive()).to.be(false);
+      expect(request.isPolling()).to.be(false);
       scope.done();
       done();
     });

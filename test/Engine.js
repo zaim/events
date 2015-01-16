@@ -65,7 +65,7 @@ describe('Engine', function () {
   });
 
 
-  describe('endpoint()', function () {
+  describe('(started)', function () {
     var token, scope, engine;
 
     token = { access_token:'test', token_type:'bearer' };
@@ -87,113 +87,186 @@ describe('Engine', function () {
     });
 
 
-    it('should throw error when engine not started', function () {
-      var engine = new Engine();
-      expect(engine.endpoint.bind(engine)).to.throwError(
-        'Engine: call .start() before accessing endpoints'
-      );
-    });
+    describe('endpoint()', function () {
 
-
-    it('should create Endpoint object with correct options', function () {
-      var endpoints = [
-        ['/r/pics/new.json', '/r/pics/new.json'],
-        ['r/pics/new.json/', '/r/pics/new.json'],
-        ['r/pics/new.json',  '/r/pics/new.json'],
-        ['/r/pics/new', '/r/pics/new.json'],
-        ['r/pics/new/', '/r/pics/new.json'],
-        ['r/pics/new',  '/r/pics/new.json']
-      ];
-      endpoints.forEach(function (test) {
-        var ep = engine.endpoint(test[0]);
-        expect(ep.options.url).to.eql('https://oauth.reddit.com' + test[1]);
+      it('should throw error when engine not started', function () {
+        var engine = new Engine();
+        expect(engine.endpoint.bind(engine)).to.throwError(
+          'Engine: call .start() before accessing endpoints'
+        );
       });
+
+
+      it('should create endpoint with correct options', function () {
+        var endpoints = [
+          ['/r/pics/new.json', '/r/pics/new.json'],
+          ['r/pics/new.json/', '/r/pics/new.json'],
+          ['r/pics/new.json',  '/r/pics/new.json'],
+          ['/r/pics/new', '/r/pics/new.json'],
+          ['r/pics/new/', '/r/pics/new.json'],
+          ['r/pics/new',  '/r/pics/new.json']
+        ];
+        endpoints.forEach(function (test) {
+          var ep = engine.endpoint(test[0]);
+          expect(ep.options.url).to.eql('https://oauth.reddit.com' + test[1]);
+        });
+      });
+
+
+      it('should return same endpoint when url is reused', function () {
+        var endpoints = [
+          '/r/javascript/hot.json',
+          'r/javascript/hot.json/',
+          'r/javascript/hot.json',
+          '/r/javascript/hot',
+          'r/javascript/hot/',
+          'r/javascript/hot'
+        ].map(function (path) {
+          return engine.endpoint(path);
+        });
+        endpoints.reduce(function (ep1, ep2) {
+          expect(ep1).to.be(ep2);
+          return ep1;
+        }, endpoints[0]);
+      });
+
+
+      it('should pipe error, response and data events', function (done) {
+        var tick, error, data, epscope, ep;
+
+        error = { message: 'error-from-endpoint' };
+        data = { value: 'data-from-endpoint' };
+
+        tick = ticker(3, function () {
+          epscope.done();
+          done();
+        });
+
+        epscope = nock('https://oauth.reddit.com')
+          .get('/r/programming/new.json')
+          .reply(200, data);
+
+        ep = engine.endpoint('/r/programming/new.json');
+
+        engine.on('error', function (err) {
+          debug(err);
+          expect(err).to.eql(error);
+          tick('error');
+        });
+
+        engine.on('response', function (resp) {
+          debug(resp.body);
+          expect(resp.body).to.eql(JSON.stringify(data));
+          tick('response');
+        });
+
+        engine.on('data', function (d) {
+          debug(data);
+          expect(d).to.eql(data);
+          tick('data');
+        });
+
+        ep.options.headers.authorization =
+          token.token_type + ' ' + token.access_token;
+        ep.fetch();
+        ep.emit('error', error);
+      });
+
+
+      it('should use correct custom subclass', function () {
+        function Custom () { Endpoint.apply(this, arguments); }
+        function Global () { Endpoint.apply(this, arguments); }
+
+        util.inherits(Custom, Endpoint);
+        util.inherits(Global, Endpoint);
+
+        Engine.register(/\/r\/[^\/]+\/(new|hot|top)\.json/, Global);
+        engine.register(/\/r\/[^\/]+\/comments\/[^\/]+\.json/, Custom);
+
+        var thread = engine.endpoint('/r/javascript/comments/id123.json');
+        var subnew = engine.endpoint('/r/programming/new.json');
+        var subhot = engine.endpoint('/r/programming/hot.json');
+        var subtop = engine.endpoint('/r/programming/top.json');
+        var normal = engine.endpoint('/about/me.json');
+
+        expect(thread).to.be.a(Custom);
+        expect(subnew).to.be.a(Global);
+        expect(subhot).to.be.a(Global);
+        expect(subtop).to.be.a(Global);
+        expect(normal).to.be.an(Endpoint);
+        expect(normal).to.not.be.a(Custom);
+        expect(normal).to.not.be.a(Global);
+      });
+
     });
 
 
-    it('should return same Endpoint objects when url is reused', function () {
-      var endpoints = [
-        '/r/javascript/hot.json',
-        'r/javascript/hot.json/',
+    describe('isRegistered()', function () {
+
+      it('should return true for global endpoints', function () {
+        function Global2 () { Endpoint.apply(this, arguments); }
+
+        util.inherits(Global2, Endpoint);
+
+        Engine.register(/\/r\/[^\/]+\/(new|hot|top)\.json/, Global2);
+
+        ['r/javascript/hot.json/',
         'r/javascript/hot.json',
         '/r/javascript/hot',
         'r/javascript/hot/',
-        'r/javascript/hot'
-      ].map(function (path) {
-        return engine.endpoint(path);
+        'r/javascript/hot'].forEach(function (path) {
+          expect(engine.isRegistered(path)).to.be(true);
+        });
       });
-      endpoints.reduce(function (ep1, ep2) {
-        expect(ep1).to.be(ep2);
-        return ep1;
-      }, endpoints[0]);
+
+
+      it('should return true for custom endpoints', function () {
+        function Custom2 () { Endpoint.apply(this, arguments); }
+
+        util.inherits(Custom2, Endpoint);
+
+        engine.register(/test_random_endpoint\/[0-9]+/, Custom2);
+
+        expect(engine.isRegistered('test_random_endpoint/42')).to.be(true);
+      });
+
+
+      it('should return false for unknown endpoints', function () {
+        expect(engine.isRegistered('/unknown/endpoint/path')).to.be(false);
+      });
+
     });
 
 
-    it('should pipe Endpoint error, response and data events', function (done) {
-      var tick, error, data, epscope, ep;
+    describe('isActive()', function () {
 
-      error = { message: 'error-from-endpoint' };
-      data = { value: 'data-from-endpoint' };
-
-      tick = ticker(3, function () {
-        epscope.done();
-        done();
+      it('should return active state of endpoints', function () {
+        engine.endpoint('/r/programming/new.json');
+        expect(engine.isActive('/r/programming/new.json')).to.be(true);
+        expect(engine.isActive('/comments/post1.json')).to.be(false);
       });
 
-      epscope = nock('https://oauth.reddit.com')
-        .get('/r/programming/new.json')
-        .reply(200, data);
-
-      ep = engine.endpoint('/r/programming/new.json');
-
-      engine.on('error', function (err) {
-        debug(err);
-        expect(err).to.eql(error);
-        tick('error');
-      });
-
-      engine.on('response', function (resp) {
-        debug(resp.body);
-        expect(resp.body).to.eql(JSON.stringify(data));
-        tick('response');
-      });
-
-      engine.on('data', function (d) {
-        debug(data);
-        expect(d).to.eql(data);
-        tick('data');
-      });
-
-      ep.options.headers.authorization =
-        token.token_type + ' ' + token.access_token;
-      ep.fetch();
-      ep.emit('error', error);
     });
 
 
-    it('should use correct custom subclass', function () {
-      function Custom () { Endpoint.apply(this, arguments); }
-      function Global () { Endpoint.apply(this, arguments); }
+    describe('isPolling()', function () {
 
-      util.inherits(Custom, Endpoint);
-      util.inherits(Global, Endpoint);
+      it('should return polling state of endpoints', function () {
+        var epscope, ep;
 
-      Engine.register(/\/r\/[^\/]+\/(new|hot|top)\.json/, Global);
-      engine.register(/\/r\/[^\/]+\/comments\/[^\/]+\.json/, Custom);
+        epscope = nock('https://oauth.reddit.com')
+          .get('/r/programming/new.json')
+          .reply(200, {});
 
-      var thread = engine.endpoint('/r/javascript/comments/id123.json');
-      var subnew = engine.endpoint('/r/programming/new.json');
-      var subhot = engine.endpoint('/r/programming/hot.json');
-      var subtop = engine.endpoint('/r/programming/top.json');
-      var normal = engine.endpoint('/about/me.json');
+        ep = engine.endpoint('/r/programming/new.json');
 
-      expect(thread).to.be.a(Custom);
-      expect(subnew).to.be.a(Global);
-      expect(subhot).to.be.a(Global);
-      expect(subtop).to.be.a(Global);
-      expect(normal).to.be.an(Endpoint);
-      expect(normal).to.not.be.a(Custom);
-      expect(normal).to.not.be.a(Global);
+        ep.poll(1000);
+        expect(engine.isPolling('/r/programming/new.json')).to.be(true);
+
+        ep.stop();
+        expect(engine.isPolling('/r/programming/new.json')).to.be(false);
+      });
+
     });
 
   });
