@@ -70,4 +70,88 @@ describe('ValueEmitter', function () {
     emitter.emit('data', data[6]);  // -> #1, #2
   });
 
+
+  describe('valueOnce()', function () {
+
+    it('should only call listener once', function (done) {
+      var emitter = new ValueEmitter();
+
+      emitter.valueOnce('data', function () {
+        done();
+      });
+
+      emitter.emit('data', {});
+      emitter.emit('data', {});
+      emitter.emit('data', {});
+    });
+
+  });
+
+
+  describe('clear()', function () {
+
+    it('should clear event data', function (done) {
+      var tick = ticker(2, done);
+      var emitter = new ValueEmitter();
+
+      emitter.emit('data', 'data1');
+      emitter.emit('data', 'data2');
+      emitter.emit('data', 'data3');
+      emitter.emit('event', 'event1');
+      emitter.emit('event', 'event2');
+      emitter.emit('event', 'event3');
+
+      emitter.valueOnce('data', function (d) {
+        expect(d).to.be('data3');
+        tick();
+      });
+
+      emitter.clear('data');
+
+      emitter.valueOnce('data', function () {
+        expect().fail('should not be called');
+      });
+
+      emitter.valueOnce('event', function (d) {
+        expect(d).to.be('event3');
+        tick();
+      });
+    });
+
+
+    it('should clear all data', function (done) {
+      var tick = ticker(2, done);
+      var emitter = new ValueEmitter();
+
+      emitter.emit('data', 'data1');
+      emitter.emit('data', 'data2');
+      emitter.emit('data', 'data3');
+      emitter.emit('event', 'event1');
+      emitter.emit('event', 'event2');
+      emitter.emit('event', 'event3');
+
+      emitter.valueOnce('data', function (d) {
+        expect(d).to.be('data3');
+        tick();
+      });
+
+      emitter.valueOnce('event', function (d) {
+        expect(d).to.be('event3');
+        tick();
+      });
+
+      emitter.clear();
+
+      emitter.value('data', function () {
+        expect().fail('"data" listener should not be called');
+      });
+
+      emitter.value('event', function () {
+        expect().fail('"event" listener should not be called');
+      });
+    });
+
+  });
+
+
 });
