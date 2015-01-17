@@ -108,7 +108,8 @@ describe('Engine', function () {
         ];
         endpoints.forEach(function (test) {
           var ep = engine.endpoint(test[0]);
-          expect(ep.options.url).to.eql('https://oauth.reddit.com' + test[1]);
+          expect(ep.options.url.href)
+            .to.eql('https://oauth.reddit.com' + test[1]);
         });
       });
 

@@ -11,6 +11,22 @@ var Endpoint = Engine.Endpoint;
 
 describe('Endpoint', function () {
 
+  it('should throw an error if url is missing', function () {
+    expect(Endpoint).to.throwError(/Endpoint requires the "url" option/);
+    expect(Endpoint.bind(null, {}))
+      .to.throwError(/Endpoint requires the "url" option/);
+  });
+
+
+  it('should parse the url and set path property', function () {
+    var endpoint = new Endpoint({
+      url: 'https://oauth.reddit.com/comments/test'
+    });
+    expect(endpoint.options.url).to.be.an('object');
+    expect(endpoint.path).to.be('/comments/test');
+  });
+
+
   it('should not send request without auth header', function (done) {
     var scope, endpoint;
 
