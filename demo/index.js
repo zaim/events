@@ -37,7 +37,7 @@ engine
 
 function printComments (thing) {
   console.log('---------- ' + (++count) + ' ----------\n');
-  lodash(thing.comments.children)
+  lodash(thing.comments)
     .filter(function (c) {
       return c.kind === 't1';
     })
