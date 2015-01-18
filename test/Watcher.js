@@ -1,6 +1,6 @@
 /* global describe, it */
 
-//var debug = require('debug')('reddit-emit:test:watcher');
+//var debug = require('debug')('remmit:test:watcher');
 var expect = require('expect.js');
 var jiff = require('jiff');
 var Emitter = require('eventemitter3');

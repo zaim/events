@@ -16,12 +16,12 @@
     "test": "mocha",
     "demo": "node demo/index.js"
   },
-  "homepage": "https://github.com/zaim/reddit-emit",
-  "bugs": "https://github.com/zaim/reddit-emit/issues",
+  "homepage": "https://github.com/zaim/remmit",
+  "bugs": "https://github.com/zaim/remmit/issues",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zaim/reddit-emit.git"
+    "url": "https://github.com/zaim/remmit.git"
   },
   "dependencies": {
     "debug": "^2.1.1",

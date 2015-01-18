@@ -1,7 +1,7 @@
 /* global describe, it, beforeEach, afterEach */
 
 var util = require('util');
-var debug = require('debug')('reddit-emit:test:engine');
+var debug = require('debug')('remmit:test:engine');
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./_util').ticker;
