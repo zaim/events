@@ -1,14 +1,6 @@
 'use strict';
 
 var Emitter = require('eventemitter3');
-var util = require('util');
-var lodash = require('lodash');
-var emit = Emitter.prototype.emit;
-
-
-module.exports = ValueEmitter;
-
-util.inherits(ValueEmitter, Emitter);
 
 
 /**
@@ -19,75 +11,78 @@ util.inherits(ValueEmitter, Emitter);
  * immediately execute the callback with the last data.
  *
  * @class
- * @augments EventEmitter
+ * @augments eventemitter3/EventEmitter
  */
 
-function ValueEmitter () {
-  Emitter.apply(this, arguments);
-  this._savedEvents = {};
-}
+export default class ValueEmitter extends Emitter {
 
-
-/**
- * @override
- */
-
-ValueEmitter.prototype.emit = function () {
-  var args = lodash.toArray(arguments);
-  var event = args[0];
-  var params = args.slice(1);
-  this._savedEvents[event] = params;
-  return emit.apply(this, args);
-};
-
-
-/**
- * Attach an event listener.
- *
- * If the event was previously fired, will immediately
- * execute the callback with the last data.
- *
- * @param {string} event
- * @param {function} callback
- * @returns {ValueEmitter} self
- */
-
-ValueEmitter.prototype.value = function (event, callback, once) {
-  var self = this;
-  var params;
-  if (this._savedEvents[event]) {
-    params = this._savedEvents[event];
-    setImmediate(function () {
-      callback.apply(self, params);
-    });
-    if (once) {
-      return this;
-    }
-  }
-  this[once ? 'once' : 'on'](event, callback);
-  return this;
-};
-
-
-/**
- * Attach event listener once.
- */
-
-ValueEmitter.prototype.valueOnce = function (event, callback) {
-  return this.value(event, callback, true);
-};
-
-
-/**
- * Clear the current value for given event or all events.
- *
- * @param {string} event If falsy, will clear all event values.
- */
-
-ValueEmitter.prototype.clear = function (event) {
-  if (event && this._savedEvents.hasOwnProperty(event)) {
-    delete this._savedEvents[event];
-  } else {
+  constructor () {
+    super();
     this._savedEvents = {};
   }
-};
+
+
+  /**
+   * @override
+   */
+
+  emit (...args) {
+    var event = args[0];
+    var params = args.slice(1);
+    this._savedEvents[event] = params;
+    return super.emit(...args);
+  }
+
+
+  /**
+   * Attach an event listener.
+   *
+   * If the event was previously fired, will immediately
+   * execute the callback with the last data.
+   *
+   * @param {string} event
+   * @param {function} callback
+   * @returns {ValueEmitter} self
+   */
+
+  value (event, callback, once) {
+    var self = this;
+    var params;
+    if (this._savedEvents[event]) {
+      params = this._savedEvents[event];
+      setImmediate(function () {
+        callback.apply(self, params);
+      });
+      if (once) {
+        return this;
+      }
+    }
+    this[once ? 'once' : 'on'](event, callback);
+    return this;
+  }
+
+
+  /**
+   * Attach event listener once.
+   */
+
+  valueOnce (event, callback) {
+    return this.value(event, callback, true);
+  }
+
+
+  /**
+   * Clear the current value for given event or all events.
+   *
+   * @param {string} event If falsy, will clear all event values.
+   */
+
+  clear (event) {
+    if (event && this._savedEvents.hasOwnProperty(event)) {
+      delete this._savedEvents[event];
+    } else {
+      this._savedEvents = {};
+    }
+  }
+
+}

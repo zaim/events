@@ -1,13 +1,7 @@
 'use strict';
 
-var util = require('util');
 var jiff = require('jiff');
 var Emitter = require('eventemitter3');
-
-
-module.exports = Watcher;
-
-util.inherits(Watcher, Emitter);
 
 
 /**
@@ -18,88 +12,97 @@ util.inherits(Watcher, Emitter);
  * Uses the `jiff` module for diffing.
  *
  * @class
- * @augments EventEmitter
- * @param {EventEmitter} source
- * @param {object} options
- *
- * @see {@link https://github.com/cujojs/jiff|jiff module}
- * @see {@link https://tools.ietf.org/html/rfc6902|JSON Patch specs}
+ * @augments eventemitter3/EventEmitter
  */
 
-function Watcher (source, options) {
-  this._object = null;
-  this._options = options || {};
-  this._source = source;
-  this._watching = false;
-  this.start();
+export default class Watcher extends Emitter {
+
+  /**
+   * @constructor
+   * @param {EventEmitter} source
+   * @param {object} options
+   *
+   * @see {@link https://github.com/cujojs/jiff|jiff module}
+   * @see {@link https://tools.ietf.org/html/rfc6902|JSON Patch specs}
+   */
+
+  constructor (source, options) {
+    super();
+    this._object = null;
+    this._options = options || {};
+    this._source = source;
+    this._watching = false;
+    this.start();
+  }
+
+
+  /**
+   * Re-start a stopped Watcher.
+   */
+
+  start () {
+    if (!this._watching) {
+      this._watching = true;
+      this._source.on('data', this._onData, this);
+    }
+  }
+
+
+  /**
+   * Stop watching for data events.
+   */
+
+  stop () {
+    this._watching = false;
+    this._source.removeListener(this._onData);
+  }
+
+
+  /**
+   * The `hashFunction` function passed to
+   * the `diff` function. (say 'function'
+   * again, I dare you)
+   *
+   * Defaults to JSON.stringify.
+   *
+   * @param {object} o
+   */
+
+  objectHash (o) {
+    // default is to stringify, which is the
+    // same as what `diff` defaults to
+    return JSON.stringify(o);
+  }
+
+
+  /**
+   * @private
+   */
+
+  _onData (data) {
+    var diff;
+
+    if (!this._object) {
+      // first time data is received, clone it
+      this._object = jiff.clone(data);
+      return;
+    }
+
+    if (this._object === data) {
+      // we got the same reference to previous
+      // data, do nothing
+      return;
+    }
+
+    diff = jiff.diff(this._object, data, {
+      hash: this.objectHash.bind(this)
+    });
+
+    this._object = data;
+
+    if (diff && diff.length) {
+      this.emit('changed', diff);
+    }
+  }
+
 }
-
-
-/**
- * Re-start a stopped Watcher.
- */
-
-Watcher.prototype.start = function () {
-  if (!this._watching) {
-    this._watching = true;
-    this._source.on('data', this._onData, this);
-  }
-};
-
-
-/**
- * Stop watching for data events.
- */
-
-Watcher.prototype.stop = function () {
-  this._watching = false;
-  this._source.removeListener(this._onData);
-};
-
-
-/**
- * The `hashFunction` function passed to
- * the `diff` function. (say 'function'
- * again, I dare you)
- *
- * Defaults to JSON.stringify.
- *
- * @param {object} o
- */
-
-Watcher.prototype.objectHash = function (o) {
-  // default is to stringify, which is the
-  // same as what `diff` defaults to
-  return JSON.stringify(o);
-};
-
-
-/**
- * @private
- */
-
-Watcher.prototype._onData = function (data) {
-  var diff;
-
-  if (!this._object) {
-    // first time data is received, clone it
-    this._object = jiff.clone(data);
-    return;
-  }
-
-  if (this._object === data) {
-    // we got the same reference to previous
-    // data, do nothing
-    return;
-  }
-
-  diff = jiff.diff(this._object, data, {
-    hash: this.objectHash.bind(this)
-  });
-
-  this._object = data;
-
-  if (diff && diff.length) {
-    this.emit('changed', diff);
-  }
-};
