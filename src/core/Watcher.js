@@ -20,8 +20,6 @@ export default class Watcher extends Emitter {
   /**
    * @constructor
    * @param {EventEmitter} source
-   * @param {object} options
-   *
    * @see {@link https://github.com/cujojs/jiff|jiff module}
    * @see {@link https://tools.ietf.org/html/rfc6902|JSON Patch specs}
    */
@@ -29,7 +27,6 @@ export default class Watcher extends Emitter {
   constructor (source, options) {
     super();
     this._object = null;
-    this._options = options || {};
     this._source = source;
     this._watching = false;
     this.start();
