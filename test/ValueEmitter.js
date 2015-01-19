@@ -1,8 +1,10 @@
+'use strict';
+
 /* global describe, it */
 
 var expect = require('expect.js');
 var ticker = require('./_util').ticker;
-var ValueEmitter = require('../lib/core').ValueEmitter;
+var ValueEmitter = require('../lib/core/ValueEmitter');
 
 
 describe('ValueEmitter', function () {

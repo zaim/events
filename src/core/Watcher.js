@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-var util = require("util");
-var jiff = require("jiff");
-var Emitter = require("eventemitter3");
+var util = require('util');
+var jiff = require('jiff');
+var Emitter = require('eventemitter3');
 
 
 module.exports = Watcher;
@@ -26,7 +26,7 @@ util.inherits(Watcher, Emitter);
  * @see {@link https://tools.ietf.org/html/rfc6902|JSON Patch specs}
  */
 
-function Watcher(source, options) {
+function Watcher (source, options) {
   this._object = null;
   this._options = options || {};
   this._source = source;
@@ -42,7 +42,7 @@ function Watcher(source, options) {
 Watcher.prototype.start = function () {
   if (!this._watching) {
     this._watching = true;
-    this._source.on("data", this._onData, this);
+    this._source.on('data', this._onData, this);
   }
 };
 
@@ -100,6 +100,6 @@ Watcher.prototype._onData = function (data) {
   this._object = data;
 
   if (diff && diff.length) {
-    this.emit("changed", diff);
+    this.emit('changed', diff);
   }
 };

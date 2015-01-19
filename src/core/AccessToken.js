@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-var util = require("util");
-var Request = require("./Request");
+var util = require('util');
+var Request = require('./Request');
 
 
 module.exports = AccessToken;
@@ -21,19 +21,19 @@ util.inherits(AccessToken, Request);
  * @param {string} options.secret client secret
  */
 
-function AccessToken(options) {
+function AccessToken (options) {
   if (!options || !options.id || !options.secret) {
-    throw new Error("AccessToken requires \"id\" and \"secret\" options");
+    throw new Error('AccessToken requires "id" and "secret" options');
   }
   Request.call(this, {
-    method: "post",
+    method: 'post',
     url: options.url,
     auth: {
       username: options.id,
       password: options.secret
     },
     form: {
-      grant_type: options.type || "client_credentials"
+      grant_type: options.type || 'client_credentials'
     },
     interval: options.interval || 3600000,
     stopOnFail: true
@@ -46,7 +46,10 @@ function AccessToken(options) {
  */
 
 AccessToken.prototype.validate = function () {
-  return this.options.auth.username && this.options.auth.password;
+  return (
+    this.options.auth.username &&
+    this.options.auth.password
+  );
 };
 
 

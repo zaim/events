@@ -1,3 +1,5 @@
+'use strict';
+
 /* global describe, it, beforeEach, afterEach */
 
 var util = require('util');
@@ -5,8 +7,8 @@ var debug = require('debug')('remmit:test:engine');
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./_util').ticker;
-var Engine = require('../lib/core');
-var Endpoint = Engine.Endpoint;
+var Engine = require('../lib/core/Engine');
+var Endpoint = require('../lib/core/Endpoint');
 
 
 describe('Engine', function () {

@@ -1,3 +1,5 @@
+'use strict';
+
 var debug = require('debug')('remmit:test');
 
 function ticker (count, done, id) {

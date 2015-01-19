@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
-var url = require("url");
-var util = require("util");
-var debug = require("debug")("remmit:endpoint");
-var lodash = require("lodash");
-var Request = require("./Request");
+var url = require('url');
+var util = require('util');
+var debug = require('debug')('remmit:endpoint');
+var lodash = require('lodash');
+var Request = require('./Request');
 
 
 module.exports = Endpoint;
@@ -24,11 +24,11 @@ util.inherits(Endpoint, Request);
  * @param {AccessToken} tokens
  */
 
-function Endpoint(options, tokens) {
+function Endpoint (options, tokens) {
   var self = this;
 
   if (!options || !options.url) {
-    throw new Error("Endpoint requires the \"url\" option");
+    throw new Error('Endpoint requires the "url" option');
   }
 
   options.url = url.parse(options.url);
@@ -41,16 +41,17 @@ function Endpoint(options, tokens) {
   });
 
   lodash.assign(this.options, {
-    method: "get",
+    method: 'get',
     stopOnFail: true
   });
 
   this._onTokens = function (data) {
     if (data && data.token_type && data.access_token) {
-      debug("set tokens", data);
-      self.options.headers.authorization = data.token_type + " " + data.access_token;
+      debug('set tokens', data);
+      self.options.headers.authorization =
+        data.token_type + ' ' + data.access_token;
       if (self.isPolling()) {
-        debug("refetching");
+        debug('refetching');
         self.fetch();
       }
     }
@@ -69,7 +70,7 @@ function Endpoint(options, tokens) {
  */
 
 Endpoint.prototype.validate = function () {
-  debug("check options", this.options.headers);
+  debug('check options', this.options.headers);
   return !!this.options.headers.authorization;
 };
 
@@ -84,10 +85,10 @@ Endpoint.prototype.validate = function () {
 
 Endpoint.prototype.setTokenEmitter = function (emitter) {
   if (this._tokenEmitter) {
-    this._tokenEmitter.removeListener("data", this._onTokens);
+    this._tokenEmitter.removeListener('data', this._onTokens);
   }
   this._tokenEmitter = emitter;
-  this._tokenEmitter.value("data", this._onTokens);
+  this._tokenEmitter.value('data', this._onTokens);
   return this;
 };
 

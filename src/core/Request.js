@@ -1,13 +1,13 @@
-"use strict";
+'use strict';
 
-var util = require("util");
-var debug = require("debug")("remmit:request");
-var lodash = require("lodash");
-var request = require("request");
-var ValueEmitter = require("./ValueEmitter");
-var pkg = require("../../package.json");
+var util = require('util');
+var debug = require('debug')('remmit:request');
+var lodash = require('lodash');
+var request = require('request');
+var ValueEmitter = require('./ValueEmitter');
+var pkg = require('../../package.json');
 
-var author = typeof pkg.author === "object" ? pkg.author.name : pkg.author;
+var author = (typeof pkg.author === 'object') ? pkg.author.name : pkg.author;
 
 
 module.exports = Request;
@@ -25,7 +25,7 @@ util.inherits(Request, ValueEmitter);
 
 Request.go = request.defaults({
   headers: {
-    "user-agent": pkg.name + "/" + pkg.version + " by " + author
+    'user-agent': pkg.name + '/' + pkg.version + ' by ' + author
   }
 });
 
@@ -40,18 +40,18 @@ Request.go = request.defaults({
  * @param {array}  options.failStatus
  */
 
-function Request(options) {
+function Request (options) {
   ValueEmitter.call(this);
 
   if (!options) {
-    throw new Error("Request requires the \"options\" argument");
+    throw new Error('Request requires the "options" argument');
   }
 
   options = lodash.cloneDeep(options);
   options.interval = options.interval || 0;
   options.failStatus = options.failStatus || [/^[^2]/];
 
-  this.on("error", this._error);
+  this.on('error', this._error);
 
   this.options = options;
   this._poll = false;
@@ -95,7 +95,7 @@ Request.prototype.parse = function (body) {
 
 Request.prototype.fetch = function (poll) {
   // enable/disable polling if `poll` arg given
-  if (typeof poll !== "undefined") {
+  if (typeof poll !== 'undefined') {
     this._poll = poll;
   }
 
@@ -105,7 +105,7 @@ Request.prototype.fetch = function (poll) {
     // `fetch` might be called async-ly
     this._predicate();
   } catch (e) {
-    this.emit("error", e);
+    this.emit('error', e);
     return false;
   }
 
@@ -114,7 +114,7 @@ Request.prototype.fetch = function (poll) {
     // in case `fetch` is called while we are
     // already waiting on a timeout (TODO test)
     this._clear();
-    debug("fetching", this.options.url);
+    debug('fetching', this.options.url);
     return Request.go(this.options, this._callback.bind(this));
   }
 
@@ -127,7 +127,7 @@ Request.prototype.fetch = function (poll) {
  */
 
 Request.prototype.poll = function (interval) {
-  if (typeof interval !== "undefined") {
+  if (typeof interval !== 'undefined') {
     this.options.interval = interval;
   }
   this.fetch(true);
@@ -140,7 +140,7 @@ Request.prototype.poll = function (interval) {
  */
 
 Request.prototype.stop = function () {
-  debug("stopping poll");
+  debug('stopping poll');
   this._clear();
   this._poll = false;
 };
@@ -161,7 +161,7 @@ Request.prototype.isPolling = function () {
 
 Request.prototype._clear = function () {
   if (this._timer) {
-    debug("clearing timer");
+    debug('clearing timer');
     clearTimeout(this._timer);
     this._timer = null;
   }
@@ -173,9 +173,9 @@ Request.prototype._clear = function () {
  */
 
 Request.prototype._predicate = function () {
-  debug("predicate: url", this.options.url);
+  debug('predicate: url', this.options.url);
   if (!this.options.url) {
-    throw new Error("Request requires the \"url\" option");
+    throw new Error('Request requires the "url" option');
   }
   return true;
 };
@@ -186,14 +186,14 @@ Request.prototype._predicate = function () {
  */
 
 Request.prototype._callback = function (err, resp, body) {
-  debug("response", err, resp && resp.statusCode, body && body.length);
+  debug('response', err, resp && resp.statusCode, body && body.length);
 
   if (resp) {
     // always emit response, even on error
-    this.emit("response", resp);
+    this.emit('response', resp);
     // check for non-200 errors
     if (!err && lodash.any(this.options.failStatus, match(resp.statusCode))) {
-      err = new Error("Request: request responded with " + resp.statusCode);
+      err = new Error('Request: request responded with ' + resp.statusCode);
     }
   }
 
@@ -210,15 +210,15 @@ Request.prototype._callback = function (err, resp, body) {
     // attach response to error object
     err.response = resp;
     // emit error *after* stopping timer
-    this.emit("error", err);
+    this.emit('error', err);
   } else {
     // everything ok? emit parsed body
-    this.emit("data", body);
+    this.emit('data', body);
   }
 
   // only setTimeout if in 'poll' mode and interval > 0
   if (this._poll && this.options.interval) {
-    debug("interval", this.options.interval);
+    debug('interval', this.options.interval);
     this._timer = setTimeout(this.fetch.bind(this), this.options.interval);
   }
 };
@@ -235,7 +235,7 @@ Request.prototype._error = function (err) {
 };
 
 
-function match(code) {
+function match (code) {
   return function (regexp) {
     return String(code).search(regexp) !== -1;
   };

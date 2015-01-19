@@ -1,10 +1,12 @@
+'use strict';
+
 /* global describe, it */
 
 //var debug = require('debug')('remmit:test:watcher');
 var expect = require('expect.js');
 var jiff = require('jiff');
 var Emitter = require('eventemitter3');
-var Watcher = require('../lib/core').Watcher;
+var Watcher = require('../lib/core/Watcher');
 var ticker = require('./_util').ticker;
 
 

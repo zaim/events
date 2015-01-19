@@ -1,3 +1,5 @@
+'use strict';
+
 /* global describe, it */
 
 var fs = require('fs');

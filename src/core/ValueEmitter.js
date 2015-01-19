@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-var Emitter = require("eventemitter3");
-var util = require("util");
-var lodash = require("lodash");
+var Emitter = require('eventemitter3');
+var util = require('util');
+var lodash = require('lodash');
 var emit = Emitter.prototype.emit;
 
 
@@ -22,7 +22,7 @@ util.inherits(ValueEmitter, Emitter);
  * @augments EventEmitter
  */
 
-function ValueEmitter() {
+function ValueEmitter () {
   Emitter.apply(this, arguments);
   this._savedEvents = {};
 }
@@ -64,7 +64,7 @@ ValueEmitter.prototype.value = function (event, callback, once) {
       return this;
     }
   }
-  this[once ? "once" : "on"](event, callback);
+  this[once ? 'once' : 'on'](event, callback);
   return this;
 };
 

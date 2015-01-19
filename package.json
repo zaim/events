@@ -13,7 +13,11 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "lint": "jshint --reporter node_modules/jshint-stylish/stylish src test",
+    "prebuild": "npm run lint",
+    "build": "6to5 src --out-dir lib",
+    "pretest": "npm run build",
+    "test": "mocha --require 6to5/polyfill",
     "demo": "node demo/index.js"
   },
   "homepage": "https://github.com/zaim/remmit",
@@ -31,7 +35,10 @@
     "request": "^2.51.0"
   },
   "devDependencies": {
+    "6to5": "^2.13.3",
     "expect.js": "^0.3.1",
+    "jshint": "^2.5.11",
+    "jshint-stylish": "^1.0.0",
     "mocha": "^2.1.0",
     "nock": "^0.55.0"
   }

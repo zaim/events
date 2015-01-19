@@ -1,12 +1,13 @@
+'use strict';
+
 /* global describe, it */
 
 var debug = require('debug')('remmit:test:endpoint');
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./_util').ticker;
-var Engine = require('../lib/core');
-var ValueEmitter = Engine.ValueEmitter;
-var Endpoint = Engine.Endpoint;
+var ValueEmitter = require('../lib/core/ValueEmitter');
+var Endpoint = require('../lib/core/Endpoint');
 
 
 describe('Endpoint', function () {

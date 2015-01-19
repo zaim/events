@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-var util = require("util");
-var Endpoint = require("../core/Endpoint");
-var Watcher = require("../core/Watcher");
-var rutil = require("./util");
+var util = require('util');
+var Endpoint = require('../core/Endpoint');
+var Watcher = require('../core/Watcher');
+var rutil = require('./util');
 var parse = Endpoint.prototype.parse;
 
 
@@ -12,10 +12,10 @@ module.exports = Thread;
 util.inherits(Thread, Endpoint);
 
 
-function Thread() {
+function Thread () {
   Endpoint.apply(this, arguments);
   this.watcher = new Watcher(this);
-  this.watcher.on("changed", this.emit.bind(this, "changed"));
+  this.watcher.on('changed', this.emit.bind(this, 'changed'));
 }
 
 
@@ -28,7 +28,7 @@ Thread.prototype.parse = function (data) {
 };
 
 
-function flattenReplies(comment) {
+function flattenReplies (comment) {
   if (comment.replies) {
     comment.replies = comment.replies.children.map(flattenReplies);
   }

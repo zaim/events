@@ -1,9 +1,11 @@
+'use strict';
+
 /* global describe, it */
 
 var expect = require('expect.js');
 var nock = require('nock');
 var ticker = require('./_util').ticker;
-var AccessToken = require('../lib/core').AccessToken;
+var AccessToken = require('../lib/core/AccessToken');
 
 
 describe('AccessToken', function () {

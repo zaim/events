@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var lo = require("lodash");
+var lo = require('lodash');
 
 
 exports.isThing = isThing;
@@ -14,8 +14,12 @@ exports.isThing = isThing;
  * @see {@link https://github.com/reddit/reddit/wiki/JSON}
  */
 
-function isThing(o) {
-  return lo.isString(o.kind) && !lo.isEmpty(o.kind) && lo.isObject(o.data);
+function isThing (o) {
+  return (
+    lo.isString(o.kind) &&
+    !lo.isEmpty(o.kind) &&
+    lo.isObject(o.data)
+  );
 }
 
 
@@ -25,14 +29,14 @@ exports.parse = parse;
  * Parse a Reddit API JSON response to a more simplified format.
  */
 
-function parse(o) {
+function parse (o) {
   var object = o;
   if (lo.isArray(o)) {
     object = lo.map(o, parse);
   } else {
     if (isThing(o)) {
       object = o.data;
-      lo.assign(object, lo.pick(o, "kind", "modhash", "before", "after"));
+      lo.assign(object, lo.pick(o, 'kind', 'modhash', 'before', 'after'));
       if (object.children) {
         object.children = parse(object.children);
       }

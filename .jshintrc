@@ -3,6 +3,7 @@
   "camelcase": false,
   "curly": true,
   "eqeqeq": true,
+  "esnext": true,
   "forin": true,
   "freeze": true,
   "immed": true,
@@ -16,7 +17,7 @@
   "quotmark": true,
   "undef": true,
   "unused": "vars",
-  "strict": false,
+  "strict": true,
   "browser": false,
   "node": true
 }
