@@ -100,23 +100,27 @@ describe('Engine', function () {
 
 
       it('should create endpoint with correct options', function () {
+        var uri = '/r/pics/new.json';
+        var qs = { limit: 25, test: 'qs' };
         var endpoints = [
-          ['/r/pics/new.json', '/r/pics/new.json'],
-          ['r/pics/new.json/', '/r/pics/new.json'],
-          ['r/pics/new.json',  '/r/pics/new.json'],
-          ['/r/pics/new', '/r/pics/new.json'],
-          ['r/pics/new/', '/r/pics/new.json'],
-          ['r/pics/new',  '/r/pics/new.json']
+          '/r/pics/new.json',
+          'r/pics/new.json/',
+          'r/pics/new.json',
+          '/r/pics/new',
+          'r/pics/new/',
+          'r/pics/new',
         ];
         endpoints.forEach(function (test) {
-          var ep = engine.endpoint(test[0]);
+          var ep = engine.endpoint(test, qs);
           expect(ep.options.url.href)
-            .to.eql('https://oauth.reddit.com' + test[1]);
+            .to.eql('https://oauth.reddit.com' + uri);
+          expect(ep.options.qs).to.eql(qs);
         });
       });
 
 
       it('should return same endpoint when url is reused', function () {
+        var different = engine.endpoint('/r/programming/top.json');
         var endpoints = [
           '/r/javascript/hot.json',
           'r/javascript/hot.json/',
@@ -128,8 +132,29 @@ describe('Engine', function () {
           return engine.endpoint(path);
         });
         endpoints.reduce(function (ep1, ep2) {
-          expect(ep1).to.be(ep2);
-          return ep1;
+          expect(ep1).to.not.be(different);
+          expect(ep2).to.be(ep1);
+          return ep2;
+        }, endpoints[0]);
+      });
+
+
+      it('should return same endpoint when url is reused with qs', function () {
+        var different = engine.endpoint('/r/javascript/hot.json', { d:'x' });
+        var endpoints = [
+          ['/r/javascript/hot.json', { a:1, b:2, c:3 }],
+          ['r/javascript/hot.json/', { b:2, c:3, a:1 }],
+          ['r/javascript/hot.json', { c:3, b:2, a:1 }],
+          ['/r/javascript/hot', { a:1, c:3, b:2 }],
+          ['r/javascript/hot/', { b:2, a:1, c:3 }],
+          ['r/javascript/hot', { c:3, a:1, b:2 }]
+        ].map(function (p) {
+          return engine.endpoint(p[0], p[1]);
+        });
+        endpoints.reduce(function (ep1, ep2) {
+          expect(ep2).to.not.be(different);
+          expect(ep2).to.be(ep1);
+          return ep2;
         }, endpoints[0]);
       });
 

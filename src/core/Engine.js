@@ -1,6 +1,7 @@
 'use strict';
 
 var lodash = require('lodash');
+var qs = require('querystring');
 var Emitter = require('eventemitter3');
 var Token = require('./AccessToken');
 var Endpoint = require('./Endpoint');
@@ -68,29 +69,32 @@ class Engine extends Emitter {
    * Get an endpoint request object.
    *
    * @param {string} path
+   * @param {object} query
    * @returns {Endpoint}
    */
 
-  endpoint (path) {
+  endpoint (path, query) {
     if (!this.tokens) {
       throw new Error('Engine: call .start() before accessing endpoints');
     }
 
-    var Class, endpoint;
+    var Class, endpoint, key;
 
     path = Engine.fixPath(path);
+    key = path + (query ? '?' + Engine.queryKey(query) : '');
 
-    if (!this._endpoints.hasOwnProperty(path)) {
+    if (!this._endpoints.hasOwnProperty(key)) {
       Class = this._findSubclass(path);
-      endpoint = this._endpoints[path] = new Class({
-        url: 'https://oauth.reddit.com' + path
+      endpoint = this._endpoints[key] = new Class({
+        url: 'https://oauth.reddit.com' + path,
+        qs: query
       }, this.tokens);
       endpoint
         .on('error', this.emit.bind(this, 'error'))
         .on('response', this.emit.bind(this, 'response'))
         .on('data', this.emit.bind(this, 'data'));
     } else {
-      endpoint = this._endpoints[path];
+      endpoint = this._endpoints[key];
     }
 
     return endpoint;
@@ -244,6 +248,17 @@ Engine.fixPath = function (path) {
   path = path[0] === '/' ? path : '/' + path;
   path = path.search(/\.json$/) > 0 ? path : path + '.json';
   return path;
+};
+
+
+/**
+ * Util function to stringify query string objects.
+ */
+
+Engine.queryKey = function (query) {
+  var keys = Object.keys(query).sort();
+  var pairs = keys.map((k) => qs.escape(k) + '=' + qs.escape(query[k]));
+  return pairs.join('&');
 };
 
 
