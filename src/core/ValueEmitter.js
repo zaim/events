@@ -42,22 +42,23 @@ export default class ValueEmitter extends Emitter {
    *
    * @param {string} event
    * @param {function} callback
+   * @param {*} context
    * @returns {ValueEmitter} self
    */
 
-  value (event, callback, once) {
-    var self = this;
+  value (event, callback, context, once) {
+    context = context || this;
     var params;
     if (this._savedEvents[event]) {
       params = this._savedEvents[event];
       setImmediate(function () {
-        callback.apply(self, params);
+        callback.apply(context, params);
       });
       if (once) {
         return this;
       }
     }
-    this[once ? 'once' : 'on'](event, callback);
+    this[once ? 'once' : 'on'](event, callback, context);
     return this;
   }
 
@@ -66,8 +67,8 @@ export default class ValueEmitter extends Emitter {
    * Attach event listener once.
    */
 
-  valueOnce (event, callback) {
-    return this.value(event, callback, true);
+  valueOnce (event, callback, context) {
+    return this.value(event, callback, context, true);
   }
 
 

@@ -25,13 +25,12 @@ export default class Endpoint extends Request {
    */
 
   constructor (options, tokens) {
-    var self = this;
-
-    if (!options || !options.url) {
+    if (!options || (!options.uri && !options.url)) {
       throw new Error('Endpoint requires the "url" option');
     }
 
-    options.url = url.parse(options.url);
+    options.url = options.uri = url.parse(options.url || options.uri);
+
     super(options);
 
     this.options.headers = this.options.headers || {};
@@ -44,18 +43,6 @@ export default class Endpoint extends Request {
       method: 'get',
       stopOnFail: true
     });
-
-    this._onTokens = function (data) {
-      if (data && data.token_type && data.access_token) {
-        debug('set tokens', data);
-        self.options.headers.authorization =
-          data.token_type + ' ' + data.access_token;
-        if (self.isPolling()) {
-          debug('refetching');
-          self.fetch();
-        }
-      }
-    };
 
     if (tokens) {
       this.setTokenEmitter(tokens);
@@ -88,7 +75,7 @@ export default class Endpoint extends Request {
       this._tokenEmitter.removeListener('data', this._onTokens);
     }
     this._tokenEmitter = emitter;
-    this._tokenEmitter.value('data', this._onTokens);
+    this._tokenEmitter.value('data', this._onTokens, this);
     return this;
   }
 
@@ -105,6 +92,23 @@ export default class Endpoint extends Request {
   query (qs) {
     this.options.qs = qs;
     return this;
+  }
+
+
+  /**
+   * @private
+   */
+
+  _onTokens (data) {
+    if (data && data.token_type && data.access_token) {
+      debug('set tokens', data);
+      this.options.headers.authorization =
+        data.token_type + ' ' + data.access_token;
+      if (this.isPolling()) {
+        debug('refetching');
+        this.fetch();
+      }
+    }
   }
 
 }
