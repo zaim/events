@@ -192,6 +192,18 @@ class Engine extends Emitter {
 
 
   /**
+   * Get registered endpoint regexp and classes.
+   *
+   * @returns {object} An array of [RegExp, Endpoint] pairs
+   */
+
+  getRegisteredEndpoints () {
+    // instance registry first, to match finding order, below
+    return this._subclasses.concat(endpointClasses);
+  }
+
+
+  /**
    * @private
    */
 
