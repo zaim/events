@@ -7,6 +7,14 @@ var Token = require('./AccessToken');
 var Endpoint = require('./Endpoint');
 
 
+/*
+ * Global custom Endpoint subclass registry.
+ */
+
+var endpointClasses = [];
+
+
+
 /**
  * API engine
  *
@@ -199,67 +207,67 @@ class Engine extends Emitter {
 
     if (!recls) {
       // next, find in global registry
-      recls = lodash(Engine._endpointClasses).find(finder);
+      recls = lodash(endpointClasses).find(finder);
     }
 
     return recls ? recls[1] : Endpoint;
   }
 
+
+  /**
+   * Register a global custom Endpoint class.
+   *
+   * When creating endpoints with the
+   * Engine#endpoint() method, if the endpoint
+   * URI matches `uriRegex`, we will use `Class`
+   * instead of `Endpoint` as constructor.
+   *
+   * Individual Engine instances can also
+   * register custom subclasses with the
+   * Engine#register() method.
+   *
+   * @static
+   * @param {RegExp} uriRegex
+   * @param {Function} Class
+   */
+
+  static register (uriRegex, cls) {
+    endpointClasses.push([uriRegex, cls]);
+    return Engine;
+  }
+
+
+  /**
+   * Util function to fix API paths.
+   *
+   * @static
+   * @param {string} path
+   * @returns string
+   */
+
+  static fixPath (path) {
+    path = path.replace(/\/+$/, '');
+    path = path[0] === '/' ? path : '/' + path;
+    path = path.search(/\.json$/) > 0 ? path : path + '.json';
+    return path;
+  }
+
+
+  /**
+   * Util function to stringify query string objects.
+   *
+   * @static
+   * @param {object} query
+   * @return {string}
+   */
+
+  static queryKey (query) {
+    var keys = Object.keys(query).sort();
+    var pairs = keys.map((k) => qs.escape(k) + '=' + qs.escape(query[k]));
+    return pairs.join('&');
+  }
+
 }
-
-
-/**
- * Global custom Endpoint subclass registry.
- *
- * @protected
- */
-
-Engine._endpointClasses = [];
-
-
-/**
- * Register a global custom Endpoint class.
- *
- * When creating endpoints with the
- * Engine#endpoint() method, if the endpoint
- * URI matches `uriRegex`, we will use `Class`
- * instead of `Endpoint` as constructor.
- *
- * Individual Engine instances can also
- * register custom subclasses with the
- * Engine#register() method.
- *
- * @param {RegExp} uriRegex
- * @param {Function} Class
- */
-
-Engine.register = function (uriRegex, cls) {
-  Engine._endpointClasses.push([uriRegex, cls]);
-  return Engine;
-};
-
-
-/**
- * Util function to fix API paths.
- */
-
-Engine.fixPath = function (path) {
-  path = path.replace(/\/+$/, '');
-  path = path[0] === '/' ? path : '/' + path;
-  path = path.search(/\.json$/) > 0 ? path : path + '.json';
-  return path;
-};
-
-
-/**
- * Util function to stringify query string objects.
- */
-
-Engine.queryKey = function (query) {
-  var keys = Object.keys(query).sort();
-  var pairs = keys.map((k) => qs.escape(k) + '=' + qs.escape(query[k]));
-  return pairs.join('&');
-};
 
 
 export default Engine;
