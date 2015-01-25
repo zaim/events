@@ -266,6 +266,53 @@ describe('Engine', function () {
     });
 
 
+    describe('getRegisteredEndpoints()', function () {
+
+      it('should return array of the registry', function () {
+        function Custom3 () { Endpoint.apply(this, arguments); }
+        function Custom4 () { Endpoint.apply(this, arguments); }
+        function Global3 () { Endpoint.apply(this, arguments); }
+        function Global4 () { Endpoint.apply(this, arguments); }
+
+        util.inherits(Custom3, Endpoint);
+        util.inherits(Custom4, Endpoint);
+        util.inherits(Global3, Endpoint);
+        util.inherits(Global4, Endpoint);
+
+        Engine.register(/\/test\/endpoint1\.json/, Global3);
+        Engine.register(/\/test\/endpoint2\.json/, Global4);
+        engine.register(/\/test\/endpoint3\.json/, Custom3);
+        engine.register(/\/test\/endpoint4\.json/, Custom4);
+
+        var registry = engine.getRegisteredEndpoints();
+
+        // Note that other `GlobalN` global classes might have
+        // been registered from previous tests.
+        // TODO: maybe an Engine.clearEndpoints() static function?
+
+        var regexps = registry.map(function (reg) {
+          return reg[0].toString();
+        });
+
+        var classes = registry.map(function (reg) {
+          return reg[1];
+        });
+
+        expect(regexps).to.contain('/\\/test\\/endpoint1\\.json/');
+        expect(regexps).to.contain('/\\/test\\/endpoint2\\.json/');
+        expect(regexps).to.contain('/\\/test\\/endpoint3\\.json/');
+        expect(regexps).to.contain('/\\/test\\/endpoint4\\.json/');
+        expect(classes).to.contain(Global3);
+        expect(classes).to.contain(Global4);
+        expect(classes).to.contain(Custom3);
+        expect(classes).to.contain(Custom4);
+        expect(classes.indexOf(Custom3)).to.be.below(
+          classes.indexOf(Global3));
+      });
+
+    });
+
+
     describe('isActive()', function () {
 
       it('should return active state of endpoints', function () {
