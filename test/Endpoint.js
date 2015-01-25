@@ -24,6 +24,17 @@ describe('Endpoint', function () {
       url: 'https://oauth.reddit.com/comments/test'
     });
     expect(endpoint.options.url).to.be.an('object');
+    expect(endpoint.options.uri).to.be.an('object');
+    expect(endpoint.path).to.be('/comments/test');
+  });
+
+
+  it('should parse the uri and set path property', function () {
+    var endpoint = new Endpoint({
+      uri: 'https://oauth.reddit.com/comments/test'
+    });
+    expect(endpoint.options.url).to.be.an('object');
+    expect(endpoint.options.uri).to.be.an('object');
     expect(endpoint.path).to.be('/comments/test');
   });
 
