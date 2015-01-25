@@ -45,6 +45,18 @@ You can pass a different thread ID:
 $ node demo [id]
 ```
 
+## Changelog
+
+### 0.2.0
+
+* **Breaking change to `Thread` class:**
+  - Correctly flatten comment thread (c00cf16ca1ea3fc32137a0fff8ebc11761c6f402)
+* Minor update to `Endpoint` class:
+  - Pass endpoint URL as either `url` or `uri` option property
+* Minor update to `Engine` class:
+  - `#endpoint()` now accepts a `query` argument
+  - Resue same endpoint with same query strings
+
 ## License
 
 `remmit` is [MIT-licensed](./LICENSE).
