@@ -97,7 +97,7 @@ describe('Endpoint', function () {
   it('should update auth header on new tokens', function (done) {
     var tick, scope, token, endpoint, timer, count = 0;
 
-    tick = ticker(10, function () {
+    tick = ticker(5, function () {
       clearTimeout(timer);
       endpoint.stop();
       scope.done();
@@ -106,14 +106,14 @@ describe('Endpoint', function () {
 
     scope = nock('https://oauth.reddit.com/')
       .get('/comments/test')
-      .times(10)
+      .times(5)
       .reply(200, {});
 
     token = new ValueEmitter();
 
     endpoint = new Endpoint({
       url: 'https://oauth.reddit.com/comments/test',
-      interval: 10
+      interval: 5
     });
 
     endpoint.on('response', checkToken);
@@ -136,7 +136,7 @@ describe('Endpoint', function () {
         token_type: 'bearer',
         access_token: 'testtoken-' + (++count)
       });
-      timer = setTimeout(emitToken, 20);
+      timer = setTimeout(emitToken, 10);
     }
   });
 
