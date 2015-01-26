@@ -30,11 +30,11 @@ export default class Thread extends Endpoint {
   }
 
   parse (data) {
-    var post;
+    var post, comments;
     data = rutil.parse(parse.call(this, data));
     post = data[0].children[0];
-    post.comments = data[1].children.map(flattenReplies);
-    return post;
+    comments = data[1].children.map(flattenReplies);
+    return { post, comments };
   }
 
 }

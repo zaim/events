@@ -15,8 +15,8 @@ describe('Thread', function () {
     var data = fs.readFileSync(__dirname + '/fixtures/2ro6nw.json');
     var thread = new Thread({ url: '/comments/test.json' });
     var parsed = thread.parse(data);
-    expect(parsed).to.be.an('object');
-    expect(parsed.kind).to.be('t3');
+    expect(parsed.post).to.be.an('object');
+    expect(parsed.post.kind).to.be('t3');
     expect(parsed.comments).to.be.an('array');
     parsed.comments.forEach(function __checkComment (comment) {
       if (comment.replies) {
@@ -31,11 +31,13 @@ describe('Thread', function () {
     var current, next, thread;
 
     current = {
-      id: 't3_name',
-      ups: 10,
-      downs: 3,
-      score: 7,
-      kind: 't3',
+      post: {
+        id: 't3_name',
+        ups: 10,
+        downs: 3,
+        score: 7,
+        kind: 't3'
+      },
       comments: [
         { id: 't1_comment1',
           ups: 1,
@@ -78,9 +80,9 @@ describe('Thread', function () {
     };
 
     next = lodash.cloneDeep(current);
-    next.ups += 10;
-    next.downs += 9;
-    next.score = next.ups - next.downs;
+    next.post.ups += 10;
+    next.post.downs += 9;
+    next.post.score = next.post.ups - next.post.downs;
     next.comments[0].ups += 8;
     next.comments[0].downs += 7;
     next.comments[0].score = next.comments[0].ups - next.comments[0].downs;
