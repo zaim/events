@@ -30,12 +30,34 @@ describe('Endpoint', function () {
   });
 
 
-  it('should parse the url and merge query object', function () {
-    var endpoint = new Endpoint({
-      url: 'https://oauth.reddit.com/comments/test?limit=10&x=1',
-      qs: { limit: 5, sort: 'new' }
+  it('should send request with correct query', function (done) {
+    var scope, token, endpoint;
+
+    scope = nock('https://oauth.reddit.com/')
+      .get('/comments/test?limit=10&sort=new')
+      .reply(500, {});
+
+    token = new ValueEmitter();
+    token.emit('data', {
+      token_type: 'bearer',
+      access_token: 'testtoken'
     });
-    expect(endpoint.options.uri.query).to.eql({ limit: 5, sort: 'new', x: 1 });
+
+    endpoint = new Endpoint({
+      url: 'https://oauth.reddit.com/comments/test?limit=10',
+      qs: { sort: 'new' }
+    });
+
+    endpoint.on('response', function (resp) {
+      expect(resp.request.url.href).to.eql(
+        'https://oauth.reddit.com/comments/test?limit=10&sort=new');
+      endpoint.stop();
+      scope.done();
+      done();
+    });
+
+    endpoint.setTokenEmitter(token);
+    endpoint.poll();
   });
 
 

@@ -1,5 +1,6 @@
 'use strict';
 
+//var qs = require('qs');
 var url = require('url');
 var debug = require('debug')('remmit:endpoint');
 var lodash = require('lodash');
@@ -29,13 +30,7 @@ export default class Endpoint extends Request {
       throw new Error('Endpoint requires the "url" option');
     }
 
-    options.uri = url.parse(options.uri || options.url, true);
-
-    if (options.qs) {
-      options.uri.query = Object.assign(options.uri.query, options.qs);
-    }
-
-    options.url = options.uri;
+    options.uri = options.url = url.parse(options.uri || options.url, true);
 
     super(options);
 
