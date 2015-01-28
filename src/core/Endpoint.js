@@ -29,7 +29,13 @@ export default class Endpoint extends Request {
       throw new Error('Endpoint requires the "url" option');
     }
 
-    options.url = options.uri = url.parse(options.url || options.uri);
+    options.uri = url.parse(options.uri || options.url, true);
+
+    if (options.qs) {
+      options.uri.query = Object.assign(options.uri.query, options.qs);
+    }
+
+    options.url = options.uri;
 
     super(options);
 

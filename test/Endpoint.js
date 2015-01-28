@@ -21,21 +21,21 @@ describe('Endpoint', function () {
 
   it('should parse the url and set path property', function () {
     var endpoint = new Endpoint({
-      url: 'https://oauth.reddit.com/comments/test'
+      url: 'https://oauth.reddit.com/comments/test?limit=10'
     });
-    expect(endpoint.options.url).to.be.an('object');
     expect(endpoint.options.uri).to.be.an('object');
+    expect(endpoint.options.uri.query).to.eql({ limit: 10 });
+    expect(endpoint.options.uri).to.equal(endpoint.options.url);
     expect(endpoint.path).to.be('/comments/test');
   });
 
 
-  it('should parse the uri and set path property', function () {
+  it('should parse the url and merge query object', function () {
     var endpoint = new Endpoint({
-      uri: 'https://oauth.reddit.com/comments/test'
+      url: 'https://oauth.reddit.com/comments/test?limit=10&x=1',
+      qs: { limit: 5, sort: 'new' }
     });
-    expect(endpoint.options.url).to.be.an('object');
-    expect(endpoint.options.uri).to.be.an('object');
-    expect(endpoint.path).to.be('/comments/test');
+    expect(endpoint.options.uri.query).to.eql({ limit: 5, sort: 'new', x: 1 });
   });
 
 
