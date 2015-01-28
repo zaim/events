@@ -317,7 +317,11 @@ describe('Engine', function () {
 
       it('should return active state of endpoints', function () {
         engine.endpoint('/r/programming/new.json');
+        engine.endpoint('/r/pics/top.json', {limit: 10});
         expect(engine.isActive('/r/programming/new.json')).to.be(true);
+        expect(engine.isActive('/r/pics/top.json')).to.be(false);
+        expect(engine.isActive('/r/pics/top.json', {limit: 10})).to.be(true);
+        expect(engine.isActive('/r/pics/top.json', {limit: 5})).to.be(false);
         expect(engine.isActive('/comments/post1.json')).to.be(false);
       });
 

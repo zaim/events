@@ -89,7 +89,7 @@ class Engine extends Emitter {
     var Class, endpoint, key;
 
     path = Engine.fixPath(path);
-    key = path + (query ? '?' + Engine.queryKey(query) : '');
+    key = Engine.endpointKey(path, query);
 
     if (!this._endpoints.hasOwnProperty(key)) {
       Class = this._findSubclass(path);
@@ -155,12 +155,13 @@ class Engine extends Emitter {
    * Check if the path is an activated endpoint.
    *
    * @param {string} path
+   * @param {object} query
    * @returns {boolean}
    */
 
-  isActive (path) {
-    path = Engine.fixPath(path);
-    return this._endpoints.hasOwnProperty(path);
+  isActive (path, query) {
+    var key = Engine.endpointKey(path, query);
+    return this._endpoints.hasOwnProperty(key);
   }
 
 
@@ -168,14 +169,15 @@ class Engine extends Emitter {
    * Check if the path is an endpoint that is actively polling.
    *
    * @param {string} path
+   * @param {object} query
    * @returns {boolean}
    */
 
-  isPolling (path) {
-    path = Engine.fixPath(path);
+  isPolling (path, query) {
+    var key = Engine.endpointKey(path, query);
     return (
-      this._endpoints.hasOwnProperty(path) &&
-      this._endpoints[path].isPolling()
+      this._endpoints.hasOwnProperty(key) &&
+      this._endpoints[key].isPolling()
     );
   }
 
@@ -277,6 +279,23 @@ class Engine extends Emitter {
     var keys = Object.keys(query).sort();
     var pairs = keys.map((k) => qs.escape(k) + '=' + qs.escape(query[k]));
     return pairs.join('&');
+  }
+
+
+  /**
+   * Util function to join path and query into a
+   * unique URI string.
+   *
+   * @static
+   * @param {string} path
+   * @param {object} query
+   * @returns {string}
+   */
+
+  static endpointKey (path, query) {
+    path = Engine.fixPath(path);
+    query = query ? '?' + Engine.queryKey(query) : '';
+    return path + query;
   }
 
 }
