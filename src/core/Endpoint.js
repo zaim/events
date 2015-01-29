@@ -1,6 +1,6 @@
 'use strict';
 
-//var qs = require('qs');
+var qs = require('querystring');
 var url = require('url');
 var debug = require('debug')('remmit:endpoint');
 var lodash = require('lodash');
@@ -16,7 +16,7 @@ var Request = require('./Request');
  * @augments Request
  */
 
-export default class Endpoint extends Request {
+class Endpoint extends Request {
 
   /**
    * @constructor
@@ -30,7 +30,20 @@ export default class Endpoint extends Request {
       throw new Error('Endpoint requires the "url" option');
     }
 
-    options.uri = options.url = url.parse(options.uri || options.url, true);
+    var uri = options.uri || options.url;
+    var q;
+
+    if (options.qs) {
+      q = Endpoint.stringifyQuery(options.qs);
+      if (/\?/.test(uri)) {
+        uri = uri.replace(/&+$/, '') + '&' + q;
+      } else {
+        uri = uri + '?' + q;
+      }
+    }
+
+    uri = url.parse(uri, true);
+    options = lodash.assign({}, options, { uri: uri, url: uri });
 
     super(options);
 
@@ -49,7 +62,7 @@ export default class Endpoint extends Request {
       this.setTokenEmitter(tokens);
     }
 
-    this.path = this.options.url.pathname;
+    this.path = Endpoint.makePath(this.options.uri);
   }
 
 
@@ -112,4 +125,52 @@ export default class Endpoint extends Request {
     }
   }
 
+
+  /**
+   * Util function to stringify query string objects.
+   *
+   * Difference from built-in `querystring` module is
+   * that the query keys are sorted before stringify,
+   * this allows the qs to be used as a unique key.
+   *
+   * @static
+   * @param {object} query
+   * @returns {string}
+   */
+
+  static stringifyQuery (query) {
+    var keys = Object.keys(query).sort();
+    var pairs = keys.map((k) => qs.escape(k) + '=' + qs.escape(query[k]));
+    return pairs.join('&');
+  }
+
+
+  /**
+   * Util function to make pathname+search key for given URI.
+   *
+   * @static
+   * @param {string|object} uri
+   * @param {object} query
+   * @returns {string}
+   */
+
+  static makePath (uri, query) {
+    var qstr = '';
+    var qobj = query || {};
+    if (!lodash.isObject(uri)) {
+      uri = url.parse(uri, true);
+    }
+    if (!lodash.isEmpty(uri.query)) {
+      qobj = lodash.assign({}, uri.query, qobj);
+    }
+    if (!lodash.isEmpty(qobj)) {
+      qstr = '?' + Endpoint.stringifyQuery(qobj);
+    }
+    return uri.pathname + qstr;
+  }
+
+
 }
+
+
+export default Endpoint;

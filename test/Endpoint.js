@@ -21,12 +21,13 @@ describe('Endpoint', function () {
 
   it('should parse the url and set path property', function () {
     var endpoint = new Endpoint({
-      url: 'https://oauth.reddit.com/comments/test?limit=10'
+      url: 'https://oauth.reddit.com/comments/test?sort=new&limit=10',
+      qs: { add: 1 }
     });
     expect(endpoint.options.uri).to.be.an('object');
-    expect(endpoint.options.uri.query).to.eql({ limit: 10 });
+    expect(endpoint.options.uri.query).to.eql({ add:1, sort:'new', limit:10 });
     expect(endpoint.options.uri).to.equal(endpoint.options.url);
-    expect(endpoint.path).to.be('/comments/test');
+    expect(endpoint.path).to.be('/comments/test?add=1&limit=10&sort=new');
   });
 
 

@@ -100,15 +100,15 @@ describe('Engine', function () {
 
 
       it('should create endpoint with correct options', function () {
-        var uri = '/r/pics/new.json';
-        var qs = { limit: 25, test: 'qs' };
+        var uri = '/r/pics/new.json?a=1&limit=25&test=qs';
+        var qs = { test: 'qs', limit: 25 };
         var endpoints = [
-          '/r/pics/new.json',
-          'r/pics/new.json/',
-          'r/pics/new.json',
-          '/r/pics/new',
-          'r/pics/new/',
-          'r/pics/new',
+          '/r/pics/new.json?a=1',
+          'r/pics/new.json/?a=1',
+          'r/pics/new.json?a=1',
+          '/r/pics/new?a=1',
+          'r/pics/new/?a=1',
+          'r/pics/new?a=1',
         ];
         endpoints.forEach(function (test) {
           var ep = engine.endpoint(test, qs);

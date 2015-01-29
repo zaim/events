@@ -1,7 +1,7 @@
 'use strict';
 
 var lodash = require('lodash');
-var qs = require('querystring');
+//var qs = require('querystring');
 var Emitter = require('eventemitter3');
 var Token = require('./AccessToken');
 var Endpoint = require('./Endpoint');
@@ -89,7 +89,7 @@ class Engine extends Emitter {
     var Class, endpoint, key;
 
     path = Engine.fixPath(path);
-    key = Engine.endpointKey(path, query);
+    key = Endpoint.makePath(path, query);
 
     if (!this._endpoints.hasOwnProperty(key)) {
       Class = this._findSubclass(path);
@@ -160,7 +160,7 @@ class Engine extends Emitter {
    */
 
   isActive (path, query) {
-    var key = Engine.endpointKey(path, query);
+    var key = Endpoint.makePath(path, query);
     return this._endpoints.hasOwnProperty(key);
   }
 
@@ -174,7 +174,7 @@ class Engine extends Emitter {
    */
 
   isPolling (path, query) {
-    var key = Engine.endpointKey(path, query);
+    var key = Endpoint.makePath(path, query);
     return (
       this._endpoints.hasOwnProperty(key) &&
       this._endpoints[key].isPolling()
@@ -260,42 +260,15 @@ class Engine extends Emitter {
    */
 
   static fixPath (path) {
+    var qs = '';
+    if (/\?/.test(path)) {
+      [path, qs] = path.split('?');
+      qs = '?' + qs;
+    }
     path = path.replace(/\/+$/, '');
     path = path[0] === '/' ? path : '/' + path;
-    path = path.search(/\.json$/) > 0 ? path : path + '.json';
-    return path;
-  }
-
-
-  /**
-   * Util function to stringify query string objects.
-   *
-   * @static
-   * @param {object} query
-   * @return {string}
-   */
-
-  static queryKey (query) {
-    var keys = Object.keys(query).sort();
-    var pairs = keys.map((k) => qs.escape(k) + '=' + qs.escape(query[k]));
-    return pairs.join('&');
-  }
-
-
-  /**
-   * Util function to join path and query into a
-   * unique URI string.
-   *
-   * @static
-   * @param {string} path
-   * @param {object} query
-   * @returns {string}
-   */
-
-  static endpointKey (path, query) {
-    path = Engine.fixPath(path);
-    query = query ? '?' + Engine.queryKey(query) : '';
-    return path + query;
+    path = /\.json$/.test(path) ? path : path + '.json';
+    return path + qs;
   }
 
 }
