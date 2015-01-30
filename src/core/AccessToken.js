@@ -1,6 +1,6 @@
 'use strict';
 
-var Request = require('./Request');
+import Request from './Request';
 
 
 /**

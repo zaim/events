@@ -1,10 +1,9 @@
 'use strict';
 
-var lodash = require('lodash');
-//var qs = require('querystring');
-var Emitter = require('eventemitter3');
-var Token = require('./AccessToken');
-var Endpoint = require('./Endpoint');
+import lodash from 'lodash';
+import Emitter from 'eventemitter3';
+import Token from './AccessToken';
+import Endpoint from './Endpoint';
 
 
 /*

@@ -1,6 +1,6 @@
 'use strict';
 
-var Emitter = require('eventemitter3');
+import Emitter from 'eventemitter3';
 
 
 /**

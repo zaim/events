@@ -1,7 +1,7 @@
 'use strict';
 
-var jiff = require('jiff');
-var Emitter = require('eventemitter3');
+import jiff from 'jiff';
+import Emitter from 'eventemitter3';
 
 
 /**

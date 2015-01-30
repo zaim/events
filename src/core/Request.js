@@ -1,10 +1,12 @@
 'use strict';
 
-var debug = require('debug')('remmit:request');
-var lodash = require('lodash');
-var request = require('request');
-var ValueEmitter = require('./ValueEmitter');
-var pkg = require('../../package.json');
+import debug from 'debug';
+import lodash from 'lodash';
+import request from 'request';
+import ValueEmitter from './ValueEmitter';
+import pkg from '../../package.json';
+
+debug = debug('remmit:request');
 
 var author = (typeof pkg.author === 'object') ? pkg.author.name : pkg.author;
 

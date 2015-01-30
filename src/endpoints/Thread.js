@@ -1,9 +1,10 @@
 'use strict';
 
-var lodash = require('lodash');
-var Endpoint = require('../core/Endpoint');
-var Watcher = require('../core/Watcher');
-var rutil = require('./util');
+import lodash from 'lodash';
+import Endpoint from '../core/Endpoint';
+import Watcher from '../core/Watcher';
+import rutil from './util';
+
 var parse = Endpoint.prototype.parse;
 
 

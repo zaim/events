@@ -1,10 +1,12 @@
 'use strict';
 
-var qs = require('querystring');
-var url = require('url');
-var debug = require('debug')('remmit:endpoint');
-var lodash = require('lodash');
-var Request = require('./Request');
+import qs from 'querystring';
+import url from 'url';
+import debug from 'debug';
+import lodash from 'lodash';
+import Request from './Request';
+
+debug = debug('remmit:endpoint');
 
 
 /**

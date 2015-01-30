@@ -1,20 +1,17 @@
 'use strict';
 
-// Install ES6 polyfills
-require('6to5/polyfill');
-
 // Export core Engine class
-var Engine = require('./core/Engine');
+import Engine from './core/Engine';
 
 // Make available other core classes
-Engine.AccessToken = require('./core/AccessToken');
-Engine.Endpoint = require('./core/Endpoint');
-Engine.Engine = require('./core/Engine');
-Engine.Request = require('./core/Request');
-Engine.ValueEmitter = require('./core/ValueEmitter');
-Engine.Watcher = require('./core/Watcher');
-Engine.Thread = require('./endpoints/Thread');
-Engine.Subreddit = require('./endpoints/Subreddit');
+import AccessToken from './core/AccessToken';
+import Endpoint from './core/Endpoint';
+import Engine from './core/Engine';
+import Request from './core/Request';
+import ValueEmitter from './core/ValueEmitter';
+import Watcher from './core/Watcher';
+import Thread from './endpoints/Thread';
+import Subreddit from './endpoints/Subreddit';
 
 
 // Register global Endpoint subclasses
@@ -22,14 +19,22 @@ Engine.Subreddit = require('./endpoints/Subreddit');
 // Comment threads
 // e.g. "/r/javascript/comments/abc123.json"
 // e.g. "/comments/xyz32.json"
-Engine.register(
-  /\/(r\/[^\/]+\/)?comments\/[^\/]+\.json/, Engine.Thread
-);
+Engine.register(/\/(r\/[^\/]+\/)?comments\/[^\/]+\.json/, Thread);
 
 // Subreddits
 // e.g. "/r/programming/hot.json"
-Engine.register(
-  /\/r\/[^\/]+\/(hot|new|top|controversial)\.json/, Engine.Subreddit
-);
+Engine.register(/\/r\/[^\/]+\/(hot|new|top|controversial)\.json/, Subreddit);
+
 
 export default Engine;
+
+export {
+  AccessToken,
+  Endpoint,
+  Engine,
+  Request,
+  ValueEmitter,
+  Watcher,
+  Thread,
+  Subreddit
+};
