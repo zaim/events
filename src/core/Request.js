@@ -1,14 +1,25 @@
 'use strict';
 
-import debug from 'debug';
+import debug_ from 'debug';
 import lodash from 'lodash';
 import request from 'request';
 import ValueEmitter from './ValueEmitter';
 import pkg from '../../package.json';
 
-debug = debug('remmit:request');
+debug_ = debug_('remmit:request');
 
 var author = (typeof pkg.author === 'object') ? pkg.author.name : pkg.author;
+
+var debug = function (req, m, ...args) {
+  var url = '';
+  if (req.options.url) {
+    url = req.options.url;
+    if (typeof req.options.url === 'object') {
+      url = req.options.url.href;
+    }
+  }
+  debug_(m, url, ...args);
+};
 
 
 /**
@@ -101,7 +112,7 @@ class Request extends ValueEmitter {
       // in case `fetch` is called while we are
       // already waiting on a timeout (TODO test)
       this._clear();
-      debug('fetching', this.options.url);
+      debug(this, 'fetching');
       return Request.go(this.options, this._callback.bind(this));
     }
 
@@ -127,7 +138,7 @@ class Request extends ValueEmitter {
    */
 
   stop () {
-    debug('stopping poll');
+    debug(this, 'stopping poll');
     this._clear();
     this._poll = false;
   }
@@ -148,7 +159,7 @@ class Request extends ValueEmitter {
 
   _clear () {
     if (this._timer) {
-      debug('clearing timer');
+      debug(this, 'clearing timer');
       clearTimeout(this._timer);
       this._timer = null;
     }
@@ -160,7 +171,7 @@ class Request extends ValueEmitter {
    */
 
   _predicate () {
-    debug('predicate: url', this.options.url);
+    debug(this, 'predicate: url');
     if (!this.options.url) {
       throw new Error('Request requires the "url" option');
     }
@@ -173,7 +184,7 @@ class Request extends ValueEmitter {
    */
 
   _callback (err, resp, body) {
-    debug('response', err, resp && resp.statusCode, body && body.length);
+    debug(this, 'response', err, resp && resp.statusCode, body && body.length);
 
     if (resp) {
       // always emit response, even on error
@@ -205,7 +216,7 @@ class Request extends ValueEmitter {
 
     // only setTimeout if in 'poll' mode and interval > 0
     if (this._poll && this.options.interval) {
-      debug('interval', this.options.interval);
+      debug(this, 'interval', this.options.interval);
       this._timer = setTimeout(this.fetch.bind(this), this.options.interval);
     }
   }
