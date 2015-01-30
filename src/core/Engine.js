@@ -124,7 +124,7 @@ class Engine extends Emitter {
     var ep = this.endpoint(path, query).valueOnce('data', callback);
     if (!ep.fetch()) {
       // wait for access tokens
-      this.tokens.once('data', () => ep.fetch());
+      this.tokens.valueOnce('data', () => ep.fetch());
     }
     return ep;
   }
