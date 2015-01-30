@@ -85,23 +85,20 @@ class Engine extends Emitter {
       throw new Error('Engine: call .start() before accessing endpoints');
     }
 
-    var Class, endpoint, key;
+    var Class, key, endpoint, opts;
 
     path = Engine.fixPath(path);
     key = Endpoint.makePath(path, query);
+    endpoint = this._endpoints[key];
+    opts = { url: 'https://oauth.reddit.com' + path, qs: query };
 
-    if (!this._endpoints.hasOwnProperty(key)) {
+    if (!endpoint) {
       Class = this._findSubclass(path);
-      endpoint = this._endpoints[key] = new Class({
-        url: 'https://oauth.reddit.com' + path,
-        qs: query
-      }, this.tokens);
-      endpoint
-        .on('error', this.emit.bind(this, 'error'))
-        .on('response', this.emit.bind(this, 'response'))
-        .on('data', this.emit.bind(this, 'data'));
-    } else {
-      endpoint = this._endpoints[key];
+      endpoint = this._endpoints[key] = (new Class(opts, this.tokens))
+        .on('error', (v) => this.emit('error', v, endpoint))
+        .on('response', (v) => this.emit('response', v, endpoint))
+        .on('data', (v) => this.emit('data', v, endpoint))
+        .on('changed', (v) => this.emit('changed', v, endpoint));
     }
 
     return endpoint;

@@ -159,13 +159,13 @@ describe('Engine', function () {
       });
 
 
-      it('should pipe error, response and data events', function (done) {
+      it('should pipe error, response, data and changed events', function (done) {
         var tick, error, data, epscope, ep;
 
         error = { message: 'error-from-endpoint' };
         data = { value: 'data-from-endpoint' };
 
-        tick = ticker(3, function () {
+        tick = ticker(4, function () {
           epscope.done();
           done();
         });
@@ -176,28 +176,39 @@ describe('Engine', function () {
 
         ep = engine.endpoint('/r/programming/new.json');
 
-        engine.on('error', function (err) {
+        engine.on('error', function (err, eep) {
           debug(err);
           expect(err).to.eql(error);
+          expect(eep).to.be(ep);
           tick('error');
         });
 
-        engine.on('response', function (resp) {
+        engine.on('response', function (resp, eep) {
           debug(resp.body);
           expect(resp.body).to.eql(JSON.stringify(data));
+          expect(eep).to.be(ep);
           tick('response');
         });
 
-        engine.on('data', function (d) {
+        engine.on('data', function (d, eep) {
           debug(data);
           expect(d).to.eql(data);
+          expect(eep).to.be(ep);
           tick('data');
+        });
+
+        engine.on('changed', function (patch, eep) {
+          debug(patch);
+          expect(patch).to.eql([]);
+          expect(eep).to.be(ep);
+          tick('changed');
         });
 
         ep.options.headers.authorization =
           token.token_type + ' ' + token.access_token;
         ep.fetch();
         ep.emit('error', error);
+        ep.emit('changed', []);
       });
 
 
