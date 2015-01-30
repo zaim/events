@@ -12,6 +12,8 @@ import Endpoint from './Endpoint';
 
 var endpointClasses = [];
 
+var DEFAULT_INTERVAL = 3000;
+
 
 
 /**
@@ -75,6 +77,8 @@ class Engine extends Emitter {
   /**
    * Get an endpoint request object.
    *
+   * No polling or fetching is done.
+   *
    * @param {string} path
    * @param {object} query
    * @returns {Endpoint}
@@ -102,6 +106,44 @@ class Engine extends Emitter {
     }
 
     return endpoint;
+  }
+
+
+  /**
+   * Fetch data from an endpoint.
+   *
+   * Polling is not automatically started.
+   *
+   * @param {string} path
+   * @param {object} query
+   * @param {function} callback
+   * @returns {Endpoint}
+   */
+
+  fetch (path, query, callback) {
+    var ep = this.endpoint(path, query).valueOnce('data', callback);
+    if (!ep.fetch()) {
+      // wait for access tokens
+      this.tokens.once('data', () => ep.fetch());
+    }
+    return ep;
+  }
+
+
+  /**
+   * Fetch and start polling an endpoint.
+   *
+   * @param {string} path
+   * @param {object} query
+   * @param {function} callback
+   * @returns {Endpoint}
+   */
+
+  poll (path, query, callback) {
+    var ep = this.endpoint(path, query).valueOnce('data', callback);
+    var ms = this.config.interval > 0 ? this.config.interval : DEFAULT_INTERVAL;
+    ep.poll(ms);
+    return ep;
   }
 
 

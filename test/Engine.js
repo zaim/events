@@ -240,6 +240,59 @@ describe('Engine', function () {
     });
 
 
+    describe('fetch()', function () {
+
+      it('should fetch data', function (done) {
+        var data, epscope;
+
+        data = { value: 'data-from-endpoint' };
+
+        epscope = nock('https://oauth.reddit.com')
+          .get('/r/programming/new.json')
+          .reply(200, data);
+
+        engine.fetch('/r/programming/new.json', null, function (d) {
+          expect(d).to.eql(data);
+          epscope.done();
+          done();
+        });
+      });
+
+    });
+
+
+    describe('poll()', function () {
+
+      it('should fetch data and start polling', function (done) {
+        var tick, data, epscope, ep;
+
+        function check (d) {
+          expect(d).to.eql(data);
+          tick();
+        }
+
+        tick = ticker(4, function () {
+          ep.stop();
+          epscope.done();
+          done();
+        });
+
+        data = { value: 'data-from-endpoint' };
+
+        epscope = nock('https://oauth.reddit.com')
+          .get('/r/programming/new.json')
+          .times(3)
+          .reply(200, data);
+
+        engine.config.interval = 50;
+
+        ep = engine.poll('/r/programming/new.json', null, check);
+        ep.on('data', check);
+      });
+
+    });
+
+
     describe('isRegistered()', function () {
 
       it('should return true for global endpoints', function () {
