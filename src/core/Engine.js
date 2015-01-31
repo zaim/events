@@ -6,12 +6,6 @@ import Token from './AccessToken';
 import Endpoint from './Endpoint';
 
 
-/*
- * Global custom Endpoint subclass registry.
- */
-
-var endpointClasses = [];
-
 var DEFAULT_INTERVAL = 3000;
 
 
@@ -238,8 +232,7 @@ class Engine extends Emitter {
    */
 
   getRegisteredEndpoints () {
-    // instance registry first, to match finding order, below
-    return this._subclasses.concat(endpointClasses);
+    return [].concat(this._subclasses);
   }
 
 
@@ -248,44 +241,8 @@ class Engine extends Emitter {
    */
 
   _findSubclass (path) {
-    var finder, recls;
-
-    finder = function __finder (recls) {
-      return recls[0].test(path);
-    };
-
-    // find in instance registry first
-    recls = lodash(this._subclasses).find(finder);
-
-    if (!recls) {
-      // next, find in global registry
-      recls = lodash(endpointClasses).find(finder);
-    }
-
-    return recls ? recls[1] : Endpoint;
-  }
-
-
-  /**
-   * Register a global custom Endpoint class.
-   *
-   * When creating endpoints with the
-   * Engine#endpoint() method, if the endpoint
-   * URI matches `uriRegex`, we will use `Class`
-   * instead of `Endpoint` as constructor.
-   *
-   * Individual Engine instances can also
-   * register custom subclasses with the
-   * Engine#register() method.
-   *
-   * @static
-   * @param {RegExp} uriRegex
-   * @param {Function} Class
-   */
-
-  static register (uriRegex, cls) {
-    endpointClasses.push([uriRegex, cls]);
-    return Engine;
+    var result = lodash(this._subclasses).find((rc) => rc[0].test(path));
+    return result ? result[1] : Endpoint;
   }
 
 

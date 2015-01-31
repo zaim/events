@@ -5,8 +5,6 @@ import Endpoint from '../core/Endpoint';
 import Watcher from '../core/Watcher';
 import rutil from './util';
 
-var parse = Endpoint.prototype.parse;
-
 
 class ThreadWatcher extends Watcher {
 
@@ -22,7 +20,7 @@ class ThreadWatcher extends Watcher {
 }
 
 
-export default class Thread extends Endpoint {
+class Thread extends Endpoint {
 
   constructor (...args) {
     super(...args);
@@ -32,10 +30,31 @@ export default class Thread extends Endpoint {
 
   parse (data) {
     var post, comments;
-    data = rutil.parse(parse.call(this, data));
+    data = rutil.parse(super.parse(data));
     post = data[0].children[0];
     comments = data[1].children.map(flattenReplies);
     return { post, comments };
+  }
+
+  /**
+   * Register the 'thread' endpoint RegExp on an Engine, should match:
+   *
+   * - /r/javascript/comments/id123.json
+   * - /r/javascript/comments/id123/ (trailing slash optional)
+   * - /r/javascript/comments/id123/any_title_text/ (trailing slash optional)
+   * - /r/javascript/comments/id123/any_title_text.json
+   * - /comments/xyz32.json
+   * - /comments/xyz32/ (trailing slash optional)
+   * - /comments/xyz32/any_title_text/ (trailing slash optional)
+   * - /comments/xyz32/any_title_text.json
+   *
+   * @param {Engine} engine Either an engine instance, or class
+   */
+
+  static register (engine) {
+    var p = '[^/]+';
+    var r = new RegExp(`/(?:r/${p}/)?comments/${p}(?:/${p})?(?:/|\\.json)?`);
+    engine.register(r, Thread);
   }
 
 }
@@ -47,3 +66,6 @@ function flattenReplies (comment) {
   }
   return comment;
 }
+
+
+export default Thread;

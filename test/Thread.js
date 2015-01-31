@@ -6,10 +6,33 @@ var fs = require('fs');
 var expect = require('expect.js');
 var jiff = require('jiff');
 var lodash = require('lodash');
+var Engine = require('../lib/core/Engine');
 var Thread = require('../lib/endpoints/Thread');
 
 
 describe('Thread', function () {
+
+  it('should register correctly matching regexp', function () {
+    var engine = new Engine();
+    Thread.register(engine);
+
+    [ '/r/javascript/comments/id123.json',
+      '/r/javascript/comments/id123',
+      '/r/javascript/comments/id123/',
+      '/r/javascript/comments/id123/any_title_text',
+      '/r/javascript/comments/id123/any_title_text/',
+      '/r/javascript/comments/id123/any_title_text.json',
+      '/comments/xyz32.json',
+      '/comments/xyz32',
+      '/comments/xyz32/',
+      '/comments/xyz32/any_title_text',
+      '/comments/xyz32/any_title_text/',
+      '/comments/xyz32/any_title_text.json'
+    ].forEach(function (uri) {
+      expect(engine.isRegistered(uri)).to.be(true);
+    });
+  });
+
 
   it('should parse and flatten response object', function () {
     var data = fs.readFileSync(__dirname + '/fixtures/2ro6nw.json');
@@ -26,6 +49,7 @@ describe('Thread', function () {
       }
     });
   });
+
 
   it('should emit correct change events', function (done) {
     var current, next, thread;

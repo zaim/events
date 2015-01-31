@@ -213,28 +213,30 @@ describe('Engine', function () {
 
 
       it('should use correct custom subclass', function () {
-        function Custom () { Endpoint.apply(this, arguments); }
-        function Global () { Endpoint.apply(this, arguments); }
+        function CustomA () { Endpoint.apply(this, arguments); }
+        function CustomB () { Endpoint.apply(this, arguments); }
 
-        util.inherits(Custom, Endpoint);
-        util.inherits(Global, Endpoint);
+        util.inherits(CustomA, Endpoint);
+        util.inherits(CustomB, Endpoint);
 
-        Engine.register(/\/r\/[^\/]+\/(new|hot|top)\.json/, Global);
-        engine.register(/\/r\/[^\/]+\/comments\/[^\/]+\.json/, Custom);
+        engine.register(/\/r\/[^\/]+\/(new|hot|top)\.json/, CustomA);
+        engine.register(/\/r\/[^\/]+\/comments\/[^\/]+\.json/, CustomB);
 
-        var thread = engine.endpoint('/r/javascript/comments/id123.json');
-        var subnew = engine.endpoint('/r/programming/new.json');
-        var subhot = engine.endpoint('/r/programming/hot.json');
-        var subtop = engine.endpoint('/r/programming/top.json');
+        var customA1 = engine.endpoint('/r/programming/new.json');
+        var customA2 = engine.endpoint('/r/programming/hot.json');
+        var customA3 = engine.endpoint('/r/programming/top.json');
+        var customB1 = engine.endpoint('/r/javascript/comments/id123.json');
+        var customB2 = engine.endpoint('/r/pics/comments/id456.json');
         var normal = engine.endpoint('/about/me.json');
 
-        expect(thread).to.be.a(Custom);
-        expect(subnew).to.be.a(Global);
-        expect(subhot).to.be.a(Global);
-        expect(subtop).to.be.a(Global);
+        expect(customA1).to.be.a(CustomA);
+        expect(customA2).to.be.a(CustomA);
+        expect(customA3).to.be.a(CustomA);
+        expect(customB1).to.be.a(CustomB);
+        expect(customB2).to.be.a(CustomB);
         expect(normal).to.be.an(Endpoint);
-        expect(normal).to.not.be.a(Custom);
-        expect(normal).to.not.be.a(Global);
+        expect(normal).to.not.be.a(CustomA);
+        expect(normal).to.not.be.a(CustomB);
       });
 
     });
@@ -295,30 +297,10 @@ describe('Engine', function () {
 
     describe('isRegistered()', function () {
 
-      it('should return true for global endpoints', function () {
-        function Global2 () { Endpoint.apply(this, arguments); }
-
-        util.inherits(Global2, Endpoint);
-
-        Engine.register(/\/r\/[^\/]+\/(new|hot|top)\.json/, Global2);
-
-        ['r/javascript/hot.json/',
-        'r/javascript/hot.json',
-        '/r/javascript/hot',
-        'r/javascript/hot/',
-        'r/javascript/hot'].forEach(function (path) {
-          expect(engine.isRegistered(path)).to.be(true);
-        });
-      });
-
-
       it('should return true for custom endpoints', function () {
-        function Custom2 () { Endpoint.apply(this, arguments); }
-
-        util.inherits(Custom2, Endpoint);
-
-        engine.register(/test_random_endpoint\/[0-9]+/, Custom2);
-
+        function Custom () { Endpoint.apply(this, arguments); }
+        util.inherits(Custom, Endpoint);
+        engine.register(/test_random_endpoint\/[0-9]+/, Custom);
         expect(engine.isRegistered('test_random_endpoint/42')).to.be(true);
       });
 
@@ -333,45 +315,25 @@ describe('Engine', function () {
     describe('getRegisteredEndpoints()', function () {
 
       it('should return array of the registry', function () {
+        function Custom1 () { Endpoint.apply(this, arguments); }
+        function Custom2 () { Endpoint.apply(this, arguments); }
         function Custom3 () { Endpoint.apply(this, arguments); }
-        function Custom4 () { Endpoint.apply(this, arguments); }
-        function Global3 () { Endpoint.apply(this, arguments); }
-        function Global4 () { Endpoint.apply(this, arguments); }
 
+        util.inherits(Custom1, Endpoint);
+        util.inherits(Custom2, Endpoint);
         util.inherits(Custom3, Endpoint);
-        util.inherits(Custom4, Endpoint);
-        util.inherits(Global3, Endpoint);
-        util.inherits(Global4, Endpoint);
 
-        Engine.register(/\/test\/endpoint1\.json/, Global3);
-        Engine.register(/\/test\/endpoint2\.json/, Global4);
+        engine.register(/\/test\/endpoint1\.json/, Custom1);
+        engine.register(/\/test\/endpoint2\.json/, Custom2);
         engine.register(/\/test\/endpoint3\.json/, Custom3);
-        engine.register(/\/test\/endpoint4\.json/, Custom4);
 
         var registry = engine.getRegisteredEndpoints();
 
-        // Note that other `GlobalN` global classes might have
-        // been registered from previous tests.
-        // TODO: maybe an Engine.clearEndpoints() static function?
-
-        var regexps = registry.map(function (reg) {
-          return reg[0].toString();
-        });
-
-        var classes = registry.map(function (reg) {
-          return reg[1];
-        });
-
-        expect(regexps).to.contain('/\\/test\\/endpoint1\\.json/');
-        expect(regexps).to.contain('/\\/test\\/endpoint2\\.json/');
-        expect(regexps).to.contain('/\\/test\\/endpoint3\\.json/');
-        expect(regexps).to.contain('/\\/test\\/endpoint4\\.json/');
-        expect(classes).to.contain(Global3);
-        expect(classes).to.contain(Global4);
-        expect(classes).to.contain(Custom3);
-        expect(classes).to.contain(Custom4);
-        expect(classes.indexOf(Custom3)).to.be.below(
-          classes.indexOf(Global3));
+        expect(registry).to.eql([
+          [/\/test\/endpoint1\.json/, Custom1],
+          [/\/test\/endpoint2\.json/, Custom2],
+          [/\/test\/endpoint3\.json/, Custom3]
+        ]);
       });
 
     });

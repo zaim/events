@@ -1,33 +1,34 @@
 'use strict';
 
-// Export core Engine class
-import Engine from './core/Engine';
-
-// Make available other core classes
+// Core classes
 import AccessToken from './core/AccessToken';
 import Endpoint from './core/Endpoint';
+import Engine from './core/Engine';
 import Engine from './core/Engine';
 import Request from './core/Request';
 import ValueEmitter from './core/ValueEmitter';
 import Watcher from './core/Watcher';
-import Thread from './endpoints/Thread';
+
+// Default Endpoint subclasses
 import Subreddit from './endpoints/Subreddit';
+import Thread from './endpoints/Thread';
 
 
-// Register global Endpoint subclasses
+/**
+ * Wrapper for instansiating `Engine` with
+ * pre-registered endpoint subclasses.
+ */
 
-// Comment threads
-// e.g. "/r/javascript/comments/abc123.json"
-// e.g. "/comments/xyz32.json"
-Engine.register(/\/(r\/[^\/]+\/)?comments\/[^\/]+\.json/, Thread);
+function Reddit (...args) {
+  var engine = new Engine(...args);
+  Thread.register(engine);
+  Subreddit.register(engine);
+  return engine;
+}
 
-// Subreddits
-// e.g. "/r/programming/hot.json"
-Engine.register(/\/r\/[^\/]+\/(hot|new|top|controversial)\.json/, Subreddit);
+export default Reddit;
 
-
-export default Engine;
-
+// Also make available all core classes
 export {
   AccessToken,
   Endpoint,
