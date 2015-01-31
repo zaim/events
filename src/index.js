@@ -19,11 +19,12 @@ import Thread from './endpoints/Thread';
  * pre-registered endpoint subclasses.
  */
 
-function Reddit (...args) {
-  var engine = new Engine(...args);
-  Thread.register(engine);
-  Subreddit.register(engine);
-  return engine;
+class Reddit extends Engine {
+  constructor(...args) {
+    super(...args);
+    Thread.register(this);
+    Subreddit.register(this);
+  }
 }
 
 export {
