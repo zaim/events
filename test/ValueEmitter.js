@@ -156,4 +156,16 @@ describe('ValueEmitter', function () {
   });
 
 
+  describe('getValue()', function () {
+
+    it('should get the current value', function () {
+      var emitter = new ValueEmitter();
+      expect(emitter.getValue('data')).to.be.an('undefined');
+      emitter.emit('data', 'data1');
+      expect(emitter.getValue('data')).to.eql(['data1']);
+    });
+
+  });
+
+
 });

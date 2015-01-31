@@ -90,8 +90,12 @@ class Endpoint extends Request {
     if (this._tokenEmitter) {
       this._tokenEmitter.removeListener('data', this._onTokens);
     }
+    emitter.value('data', this._onTokens, this);
+    var current = emitter.getValue('data');
+    if (current) {
+      this._onTokens.apply(this, current);
+    }
     this._tokenEmitter = emitter;
-    this._tokenEmitter.value('data', this._onTokens, this);
     return this;
   }
 
@@ -116,11 +120,14 @@ class Endpoint extends Request {
    */
 
   _onTokens (data) {
+    var newAuth;
+    var currentAuth = this.options.headers.authorization;
+
     if (data && data.token_type && data.access_token) {
       debug('set tokens', data);
-      this.options.headers.authorization =
-        data.token_type + ' ' + data.access_token;
-      if (this.isPolling()) {
+      newAuth = data.token_type + ' ' + data.access_token;
+      this.options.headers.authorization = newAuth;
+      if (newAuth !== currentAuth && this.isPolling()) {
         debug('refetching');
         this.fetch();
       }

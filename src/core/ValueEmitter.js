@@ -86,4 +86,16 @@ export default class ValueEmitter extends Emitter {
     }
   }
 
+
+  /**
+   * Get the current value
+   *
+   * @param {string} event
+   * @returns {array}
+   */
+
+  getValue (event) {
+    return this._savedEvents[event];
+  }
+
 }
