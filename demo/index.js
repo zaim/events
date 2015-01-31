@@ -1,7 +1,9 @@
 // TODO: a better demo :)
 
+'use strict';
+
 var lodash = require('lodash');
-var Engine = require('../');
+var remmit = require('../');
 var count = 0;
 
 var secrets;
@@ -21,7 +23,7 @@ try {
   process.exit(1);
 }
 
-engine = new Engine(secrets);
+engine = new remmit.Reddit(secrets);
 engine.on('error', printError);
 engine.start();
 
