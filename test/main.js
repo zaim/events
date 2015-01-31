@@ -3,7 +3,7 @@
 /* global describe, it */
 
 var expect = require('expect.js');
-var Reddit = require('../lib');
+var Reddit = require('../lib').Reddit;
 var Engine = require('../lib/core/Engine');
 var Thread = require('../lib/endpoints/Thread');
 var Subreddit = require('../lib/endpoints/Subreddit');

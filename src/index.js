@@ -26,13 +26,11 @@ function Reddit (...args) {
   return engine;
 }
 
-export default Reddit;
-
-// Also make available all core classes
 export {
   AccessToken,
   Endpoint,
   Engine,
+  Reddit,
   Request,
   ValueEmitter,
   Watcher,
