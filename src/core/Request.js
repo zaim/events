@@ -49,7 +49,7 @@ class Request extends ValueEmitter {
     options.interval = options.interval || 0;
     options.failStatus = options.failStatus || [/^[^2]/];
 
-    this.on('error', this._error);
+    this.on('error', this._onError);
 
     this.options = options;
     this._poll = false;
@@ -207,18 +207,22 @@ class Request extends ValueEmitter {
     if (err) {
       // attach response to error object
       err.response = resp;
-      // emit error *after* stopping timer
       this.emit('error', err);
     } else {
       // everything ok? emit parsed body
       this.emit('data', body);
     }
 
-    // only setTimeout if in 'poll' mode and interval > 0
-    if (this._poll && this.options.interval) {
-      debug(this, 'interval', this.options.interval);
-      this._timer = setTimeout(this.fetch.bind(this), this.options.interval);
-    }
+    process.nextTick(() => {
+      // only setTimeout if in poll mode and interval > 0
+      // and got no error or stopOnError=true
+      var polling = this._poll && this.options.interval > 0;
+      var stopErr = err && this.options.stopOnError;
+      if (polling && !stopErr) {
+        debug(this, 'interval', this.options.interval);
+        this._timer = setTimeout(this.fetch.bind(this), this.options.interval);
+      }
+    });
   }
 
 
@@ -226,8 +230,9 @@ class Request extends ValueEmitter {
    * @private
    */
 
-  _error (err) {
-    if (this.options.stopOnFail) {
+  _onError (err) {
+    if (this.options.stopOnError) {
+      debug(this, 'stop on error', err);
       this.stop();
     }
   }

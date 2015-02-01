@@ -169,4 +169,53 @@ describe('Endpoint', function () {
     }
   });
 
+
+  it('should throttle polling on error', function (done) {
+    var uri = '/comments/test';
+    var tick, scope, token, endpoint;
+
+    tick = ticker(10, function () {
+      endpoint.stop();
+      scope.done();
+      done();
+    });
+
+    scope = nock('https://oauth.reddit.com/')
+      .get(uri).reply(200, {})
+      .get(uri).reply(200, {})
+      .get(uri).reply(503, {})
+      .get(uri).reply(503, {})
+      .get(uri).reply(200, {})
+      .get(uri).reply(200, {})
+      .get(uri).reply(503, {})
+      .get(uri).reply(503, {})
+      .get(uri).reply(200, {})
+      .get(uri).reply(200, {});
+
+    token = new ValueEmitter();
+    token.emit('data', {
+      token_type: 'bearer',
+      access_token: 'testtoken'
+    });
+
+    endpoint = new Endpoint({
+      url: 'https://oauth.reddit.com' + uri,
+      interval: 5,
+      throttle: 0.1
+    });
+
+    endpoint.on('error', function () {
+      expect(endpoint.options.interval).to.be.above(5);
+      tick('e=' + endpoint.options.interval);
+    });
+
+    endpoint.on('data', function () {
+      expect(endpoint.options.interval).to.be(5);
+      tick('d=' + endpoint.options.interval);
+    });
+
+    endpoint.setTokenEmitter(token);
+    endpoint.poll();
+  });
+
 });

@@ -36,7 +36,7 @@ export default class AccessToken extends Request {
         grant_type: options.type || 'client_credentials'
       },
       interval: options.interval || 3600000,
-      stopOnFail: true
+      stopOnError: false
     });
   }
 

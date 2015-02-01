@@ -112,7 +112,7 @@ describe('Request', function () {
   });
 
 
-  it('should stop refresh on error if stopOnFail=true', function (done) {
+  it('should stop refresh on error if stopOnError=true', function (done) {
     var tick, scope, request;
 
     tick = ticker(2, function () {
@@ -129,7 +129,7 @@ describe('Request', function () {
     request = new Request({
       interval: 10,
       url: 'https://www.reddit.com/comments/test',
-      stopOnFail: true
+      stopOnError: true
     });
 
     request.on('data', tick);

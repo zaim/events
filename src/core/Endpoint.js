@@ -57,7 +57,7 @@ class Endpoint extends Request {
         authorization: null
       }),
       method: 'get',
-      stopOnFail: true
+      stopOnError: false
     });
 
     Object.defineProperty(this, 'path', {
@@ -145,6 +145,37 @@ class Endpoint extends Request {
       if (newAuth !== currentAuth && this.isPolling()) {
         debug('refetching');
         this.fetch();
+      }
+    }
+  }
+
+
+  /**
+   * @protected
+   */
+
+  parse (...args) {
+    if (this._defaultInterval) {
+      this.options.interval = this._defaultInterval;
+      debug('reset poll', this.options.interval);
+    }
+    return super.parse(...args);
+  }
+
+
+  /**
+   * @protected
+   */
+
+  _onError (err) {
+    if (err.response && err.response.statusCode >= 500) {
+      debug('error');
+      var i = this.options.interval;
+      var t = this.options.throttle || 0.1;
+      if (i > 0) {
+        this._defaultInterval = this._defaultInterval || i;
+        this.options.interval = i + (i * t);
+        debug('throttled poll', this.options.interval);
       }
     }
   }
