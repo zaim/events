@@ -20,14 +20,20 @@ describe('Endpoint', function () {
 
 
   it('should parse the url and set path property', function () {
+    var url = 'https://oauth.reddit.com/comments/test?sort=new&limit=10';
+    var eurl = 'https://oauth.reddit.com/comments/test?add=1&limit=10&sort=new';
     var endpoint = new Endpoint({
-      url: 'https://oauth.reddit.com/comments/test?sort=new&limit=10',
+      url: url,
       qs: { add: 1 }
     });
+    var eq = { add: 1, sort: 'new', limit: 10 };
     expect(endpoint.options.uri).to.be.an('object');
-    expect(endpoint.options.uri.query).to.eql({ add:1, sort:'new', limit:10 });
+    expect(endpoint.options.uri.query).to.eql(eq);
     expect(endpoint.options.uri).to.equal(endpoint.options.url);
+    expect(endpoint.href).to.be(eurl);
     expect(endpoint.path).to.be('/comments/test?add=1&limit=10&sort=new');
+    expect(endpoint.pathname).to.be('/comments/test');
+    expect(endpoint.query).to.eql(eq);
   });
 
 

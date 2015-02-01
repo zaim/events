@@ -239,6 +239,18 @@ describe('Engine', function () {
         expect(normal).to.not.be.a(CustomB);
       });
 
+
+      it('should throw error if endpoint not registered', function () {
+        function CustomA () { Endpoint.apply(this, arguments); }
+        util.inherits(CustomA, Endpoint);
+        engine.config.registeredOnly = true;
+        engine.register(/\/r\/[^\/]+\/(new|hot|top)\.json/, CustomA);
+        expect(engine.endpoint('/r/pics/new.json')).to.be.a(CustomA);
+        expect(function () {
+          engine.endpoint('/unknown/endpoint');
+        }).to.throwError(/No endpoint registered/);
+      });
+
     });
 
 

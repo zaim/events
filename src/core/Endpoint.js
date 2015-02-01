@@ -33,38 +33,53 @@ class Endpoint extends Request {
     }
 
     var uri = options.uri || options.url;
-    var q;
 
-    if (options.qs) {
-      q = Endpoint.stringifyQuery(options.qs);
-      if (/\?/.test(uri)) {
-        uri = uri.replace(/&+$/, '') + '&' + q;
-      } else {
-        uri = uri + '?' + q;
-      }
+    if (!lodash.isObject(uri)) {
+      uri = url.parse(uri, true);
     }
 
-    uri = url.parse(uri, true);
-    options = lodash.assign({}, options, { uri: uri, url: uri });
+    // merge both queries in the uri string and options object
+    if (options.qs) {
+      uri.query = lodash.merge(uri.query || {}, options.qs);
+    }
 
-    super(options);
+    // if there is a qs, re-stringify uri to sort by keys
+    if (!lodash.isEmpty(uri.query)) {
+      uri.search = '?' + Endpoint.stringifyQuery(uri.query);
+      uri.path = uri.pathname + uri.search;
+      uri.href = url.format(uri);
+    }
 
-    this.options.headers = this.options.headers || {};
-
-    lodash.assign(this.options.headers, {
-      authorization: null
-    });
+    super(lodash.assign({}, options, { uri: uri, url: uri }));
 
     lodash.assign(this.options, {
+      headers: lodash.assign(this.options.headers || {}, {
+        authorization: null
+      }),
       method: 'get',
       stopOnFail: true
+    });
+
+    Object.defineProperty(this, 'path', {
+      configurable: false,
+      enumerable: false,
+      value: Endpoint.makePath(this.options.uri),
+      writable: false
+    });
+
+    ['href', 'pathname', 'query'].forEach((key) => {
+      Object.defineProperty(this, key, {
+        configurable: false,
+        enumerable: false,
+        get () {
+          return this.options.uri[key];
+        }
+      });
     });
 
     if (tokens) {
       this.setTokenEmitter(tokens);
     }
-
-    this.path = Endpoint.makePath(this.options.uri);
   }
 
 
@@ -177,7 +192,6 @@ class Endpoint extends Request {
     }
     return uri.pathname + qstr;
   }
-
 
 }
 
