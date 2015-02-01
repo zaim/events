@@ -56,42 +56,48 @@ describe('Thread', function () {
 
     current = {
       post: {
-        id: 't3_name',
+        id: 'name',
+        name: 't3_name',
         ups: 10,
         downs: 3,
         score: 7,
         kind: 't3'
       },
       comments: [
-        { id: 't1_comment1',
+        { id: 'comment1',
+          name: 't1_comment1',
           ups: 1,
           downs: 0,
           score: 1,
           body: 'test1',
           kind: 't1'
         },
-        { id: 't1_comment2',
+        { id: 'comment2',
+          name: 't1_comment2',
           ups: 1,
           downs: 0,
           score: 1,
           body: 'test2',
           kind: 't1'
         },
-        { id: 't1_comment3',
+        { id: 'comment3',
+          name: 't1_comment3',
           ups: 1,
           downs: 0,
           score: 1,
           body: 'test3',
           kind: 't1',
           replies: [
-            { id: 't1_comment3_1',
+            { id: 'comment3_1',
+              name: 't1_comment3_1',
               ups: 1,
               downs: 0,
               score: 1,
               body: 'test3_1',
               kind: 't1'
             },
-            { id: 't1_comment3_2',
+            { id: 'comment3_2',
+              name: 't1_comment3_2',
               ups: 1,
               downs: 0,
               score: 1,
@@ -104,19 +110,41 @@ describe('Thread', function () {
     };
 
     next = lodash.cloneDeep(current);
+
     next.post.ups += 10;
     next.post.downs += 9;
     next.post.score = next.post.ups - next.post.downs;
+
     next.comments[0].ups += 8;
     next.comments[0].downs += 7;
     next.comments[0].score = next.comments[0].ups - next.comments[0].downs;
+
     next.comments[1].ups += 6;
     next.comments[1].downs += 5;
     next.comments[1].score = next.comments[1].ups - next.comments[1].downs;
+
     next.comments[2].replies[0].ups += 4;
     next.comments[2].replies[0].downs += 3;
     next.comments[2].replies[0].score = next.comments[2].replies[0].ups +
       next.comments[2].replies[0].downs;
+
+    next.comments[2].replies[1] = {
+      name: 't1_comment3_2',
+      kind: 'more',
+      count: 1,
+      parent_id: next.comments[1].id,
+      children: ['test']
+    };
+
+    next.comments[2].replies.unshift({
+      id: 'comment3_3',
+      name: 't1_comment3_3',
+      ups: 1,
+      downs: 0,
+      score: 1,
+      body: 'test3_3',
+      kind: 't1'
+    });
 
     thread = new Thread({ url: '/comments/test.json' });
     thread.on('changed', function (ops) {

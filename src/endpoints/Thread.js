@@ -11,8 +11,8 @@ class ThreadWatcher extends Watcher {
   objectHash (object) {
     if (lodash.isString(object.kind) &&
         !lodash.isEmpty(object.kind) &&
-        !lodash.isEmpty(object.id)) {
-      return object.id;
+        !lodash.isEmpty(object.name)) {
+      return object.name + (object.kind === 'more' ? '_more' : '');
     }
     return super.objectHash(object);
   }
