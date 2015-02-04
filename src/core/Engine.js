@@ -270,7 +270,7 @@ class Engine extends Emitter {
       options = lodash.cloneDeep(options);
     }
 
-    options.qs = options.query = options.query || query;
+    options.qs = options.query = options.qs || options.query || query;
     options.path = Engine.fixPath(options.path);
 
     if (this.config.registeredOnly && !this.isRegistered(options.path)) {

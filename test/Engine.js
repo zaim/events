@@ -112,10 +112,15 @@ describe('Engine', function () {
           'r/pics/new?a=1',
         ];
         endpoints.forEach(function (test) {
-          var ep = engine.endpoint(test, qs);
-          expect(ep.options.url.href)
-            .to.eql('https://oauth.reddit.com' + uri);
-          expect(ep.options.qs).to.eql(qs);
+          [ engine.endpoint(test, qs),
+            engine.endpoint({ path: test }, qs),
+            engine.endpoint({ path: test, query: qs }),
+            engine.endpoint({ path: test, qs: qs })
+          ].forEach(function (ep, i) {
+            expect(ep.options.url.href)
+              .to.eql('https://oauth.reddit.com' + uri);
+            expect(ep.options.qs).to.eql(qs);
+          });
         });
       });
 
