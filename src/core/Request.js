@@ -1,5 +1,6 @@
 'use strict';
 
+import qs from 'querystring';
 import debug_ from 'debug';
 import lodash from 'lodash';
 import request from 'request';
@@ -154,6 +155,16 @@ class Request extends ValueEmitter {
 
 
   /**
+   * Get data
+   */
+
+  getData () {
+    var data = this.getValue('data');
+    return lodash.isEmpty(data) ? null : data[0];
+  }
+
+
+  /**
    * @private
    */
 
@@ -235,6 +246,25 @@ class Request extends ValueEmitter {
       debug(this, 'stop on error', err);
       this.stop();
     }
+  }
+
+
+  /**
+   * Util function to stringify query string objects.
+   *
+   * Difference from built-in `querystring` module is
+   * that the query keys are sorted before stringify,
+   * this allows the qs to be used as a unique key.
+   *
+   * @static
+   * @param {object} query
+   * @returns {string}
+   */
+
+  static stringifyQuery (query) {
+    var keys = Object.keys(query).sort();
+    var pairs = keys.map((k) => qs.escape(k) + '=' + qs.escape(query[k]));
+    return pairs.join('&');
   }
 
 }

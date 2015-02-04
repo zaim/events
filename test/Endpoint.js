@@ -2,6 +2,7 @@
 
 /* global describe, it */
 
+var Emitter = require('eventemitter3');
 var debug = require('debug')('remmit:test:endpoint');
 var expect = require('expect.js');
 var nock = require('nock');
@@ -19,7 +20,7 @@ describe('Endpoint', function () {
   });
 
 
-  it('should parse the url and set path property', function () {
+  it('should parse the url and properties', function () {
     var url = 'https://oauth.reddit.com/comments/test?sort=new&limit=10';
     var eurl = 'https://oauth.reddit.com/comments/test?add=1&limit=10&sort=new';
     var endpoint = new Endpoint({
@@ -34,6 +35,19 @@ describe('Endpoint', function () {
     expect(endpoint.path).to.be('/comments/test?add=1&limit=10&sort=new');
     expect(endpoint.pathname).to.be('/comments/test');
     expect(endpoint.query).to.eql(eq);
+  });
+
+
+  it('should set key and engine properties', function () {
+    var eng = new Emitter();
+    var url = 'https://oauth.reddit.com/comments/test?sort=new&limit=10';
+    var key = '/comments/test?limit=10&sort=new';
+    var ep1 = new Endpoint({ url: url, key: key });
+    var ep2 = new Endpoint({ url: url, key: key }, null, eng);
+    expect(ep1.key).to.be(key);
+    expect(ep1.engine).to.be.an('undefined');
+    expect(ep2.key).to.be(key);
+    expect(ep2.engine).to.be(eng);
   });
 
 

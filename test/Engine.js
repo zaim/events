@@ -9,6 +9,7 @@ var nock = require('nock');
 var ticker = require('./_util').ticker;
 var Engine = require('../lib/core/Engine');
 var Endpoint = require('../lib/core/Endpoint');
+var Thread = require('../lib/endpoints/Thread');
 
 
 describe('Engine', function () {
@@ -237,6 +238,30 @@ describe('Engine', function () {
         expect(normal).to.be.an(Endpoint);
         expect(normal).to.not.be.a(CustomA);
         expect(normal).to.not.be.a(CustomB);
+      });
+
+
+      it('should normalize custom subclass path', function () {
+        Thread.register(engine);
+
+        var different = engine.endpoint('/r/programming/top.json');
+        var endpoints = [
+          '/r/javascript/comments/id123',
+          '/r/javascript/comments/id123.json',
+          '/r/javascript/comments/id123/bla_bla_bla',
+          '/r/javascript/comments/id123/bla_bla_bla.json',
+          '/comments/id123',
+          '/comments/id123/',
+          '/comments/id123.json'
+        ].map(function (path) {
+          return engine.endpoint(path);
+        });
+
+        endpoints.reduce(function (ep1, ep2) {
+          expect(ep1).to.not.be(different);
+          expect(ep2).to.be(ep1);
+          return ep2;
+        }, endpoints[0]);
       });
 
 

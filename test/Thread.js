@@ -34,6 +34,26 @@ describe('Thread', function () {
   });
 
 
+  it('should correctly normalize path', function () {
+    [ '/r/javascript/comments/id123.json',
+      '/r/javascript/comments/id123',
+      '/r/javascript/comments/id123/',
+      '/r/javascript/comments/id123/any_title_text',
+      '/r/javascript/comments/id123/any_title_text/',
+      '/r/javascript/comments/id123/any_title_text.json',
+      '/comments/id123.json',
+      '/comments/id123',
+      '/comments/id123/',
+      '/comments/id123/any_title_text',
+      '/comments/id123/any_title_text/',
+      '/comments/id123/any_title_text.json'
+    ].forEach(function (uri) {
+      var norm = Thread.normalizePath(uri);
+      expect(norm).to.be('/comments/id123.json');
+    });
+  });
+
+
   it('should parse and flatten response object', function () {
     var data = fs.readFileSync(__dirname + '/fixtures/2ro6nw.json');
     var thread = new Thread({ url: '/comments/test.json' });

@@ -1,6 +1,5 @@
 'use strict';
 
-import qs from 'querystring';
 import url from 'url';
 import debug from 'debug';
 import lodash from 'lodash';
@@ -27,12 +26,13 @@ class Endpoint extends Request {
    * @param {AccessToken} tokens
    */
 
-  constructor (options, tokens) {
+  constructor (options, tokens, engine) {
     if (!options || (!options.uri && !options.url)) {
       throw new Error('Endpoint requires the "url" option');
     }
 
     var uri = options.uri || options.url;
+    var key = options.key;
 
     if (!lodash.isObject(uri)) {
       uri = url.parse(uri, true);
@@ -50,7 +50,7 @@ class Endpoint extends Request {
       uri.href = url.format(uri);
     }
 
-    super(lodash.assign({}, options, { uri: uri, url: uri }));
+    super(lodash.assign({}, options, { uri:uri, url:uri, key:undefined }));
 
     lodash.assign(this.options, {
       headers: lodash.assign(this.options.headers || {}, {
@@ -60,14 +60,7 @@ class Endpoint extends Request {
       stopOnError: false
     });
 
-    Object.defineProperty(this, 'path', {
-      configurable: false,
-      enumerable: false,
-      value: Endpoint.makePath(this.options.uri),
-      writable: false
-    });
-
-    ['href', 'pathname', 'query'].forEach((key) => {
+    ['href', 'path', 'pathname', 'query'].forEach((key) => {
       Object.defineProperty(this, key, {
         configurable: false,
         enumerable: false,
@@ -76,6 +69,24 @@ class Endpoint extends Request {
         }
       });
     });
+
+    if (key) {
+      Object.defineProperty(this, 'key', {
+        configurable: false,
+        enumerable: false,
+        writable: false,
+        value: key
+      });
+    }
+
+    if (engine) {
+      Object.defineProperty(this, 'engine', {
+        configurable: false,
+        enumerable: false,
+        writable: false,
+        value: engine
+      });
+    }
 
     if (tokens) {
       this.setTokenEmitter(tokens);
@@ -178,50 +189,6 @@ class Endpoint extends Request {
         debug('throttled poll', this.options.interval);
       }
     }
-  }
-
-
-  /**
-   * Util function to stringify query string objects.
-   *
-   * Difference from built-in `querystring` module is
-   * that the query keys are sorted before stringify,
-   * this allows the qs to be used as a unique key.
-   *
-   * @static
-   * @param {object} query
-   * @returns {string}
-   */
-
-  static stringifyQuery (query) {
-    var keys = Object.keys(query).sort();
-    var pairs = keys.map((k) => qs.escape(k) + '=' + qs.escape(query[k]));
-    return pairs.join('&');
-  }
-
-
-  /**
-   * Util function to make pathname+search key for given URI.
-   *
-   * @static
-   * @param {string|object} uri
-   * @param {object} query
-   * @returns {string}
-   */
-
-  static makePath (uri, query) {
-    var qstr = '';
-    var qobj = query || {};
-    if (!lodash.isObject(uri)) {
-      uri = url.parse(uri, true);
-    }
-    if (!lodash.isEmpty(uri.query)) {
-      qobj = lodash.assign({}, uri.query, qobj);
-    }
-    if (!lodash.isEmpty(qobj)) {
-      qstr = '?' + Endpoint.stringifyQuery(qobj);
-    }
-    return uri.pathname + qstr;
   }
 
 }

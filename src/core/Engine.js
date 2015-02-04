@@ -1,10 +1,13 @@
 'use strict';
 
+import url from 'url';
+import debug from 'debug';
 import lodash from 'lodash';
 import Emitter from 'eventemitter3';
 import Token from './AccessToken';
 import Endpoint from './Endpoint';
 
+debug = debug('remmit:engine');
 
 var DEFAULT_INTERVAL = 3000;
 
@@ -69,34 +72,29 @@ class Engine extends Emitter {
 
 
   /**
-   * Get an endpoint request object.
+   * Get an endpoint request object,
+   * if it is not yet activated,
+   * activate it.
    *
    * No polling or fetching is done.
    *
-   * @param {string} path
+   * @param {object|string} options
    * @param {object} query
    * @returns {Endpoint}
    */
 
-  endpoint (path, query) {
-    if (!this.tokens) {
-      throw new Error('Engine: call .start() before accessing endpoints');
-    }
+  endpoint (options, query) {
+    options = this._parseOptions(options, query);
 
-    path = Engine.fixPath(path);
-
-    if (this.config.registeredOnly && !this.isRegistered(path)) {
-      throw new Error('No endpoint registered for path: ' + path);
-    }
-
-    var Class;
-    var key = Endpoint.makePath(path, query);
+    var {Class, path, key} = options;
     var endpoint = this._endpoints[key];
-    var opts = { url: 'https://oauth.reddit.com' + path, qs: query };
 
     if (!endpoint) {
-      Class = this._findSubclass(path);
-      endpoint = this._endpoints[key] = (new Class(opts, this.tokens))
+      debug('activate endpoint', key, options);
+      options.url = 'https://oauth.reddit.com' + path;
+      options.Class = undefined;
+      options.path = undefined;
+      endpoint = this._endpoints[key] = (new Class(options, this.tokens, this))
         .on('error', (v) => this.emit('error', v, endpoint))
         .on('response', (v) => this.emit('response', v, endpoint))
         .on('data', (v) => this.emit('data', v, endpoint))
@@ -104,6 +102,22 @@ class Engine extends Emitter {
     }
 
     return endpoint;
+  }
+
+
+  /**
+   * Get an endpoint request object,
+   * if it is not yet activated,
+   * returns `undefined`.
+   *
+   * @param {object|string} options
+   * @param {object} query
+   * @returns {Endpoint|undefined}
+   */
+
+  get (options, query) {
+    options = this._parseOptions(options, query);
+    return this._endpoints[options.key];
   }
 
 
@@ -190,14 +204,13 @@ class Engine extends Emitter {
   /**
    * Check if the path is an activated endpoint.
    *
-   * @param {string} path
+   * @param {object|string} path
    * @param {object} query
    * @returns {boolean}
    */
 
-  isActive (path, query) {
-    var key = Endpoint.makePath(path, query);
-    return this._endpoints.hasOwnProperty(key);
+  isActive (options, query) {
+    return !!this.get(options, query);
   }
 
 
@@ -210,11 +223,8 @@ class Engine extends Emitter {
    */
 
   isPolling (path, query) {
-    var key = Endpoint.makePath(path, query);
-    return (
-      this._endpoints.hasOwnProperty(key) &&
-      this._endpoints[key].isPolling()
-    );
+    var ep = this.get(path, query);
+    return ep && ep.isPolling();
   }
 
 
@@ -241,6 +251,44 @@ class Engine extends Emitter {
 
 
   /**
+   * Parse and normalize an endpoint options object.
+   *
+   * @private
+   * @param {object|string} options
+   * @param {object} query
+   * @returns {EndpointOptions}
+   */
+
+  _parseOptions (options, query) {
+    if (!this.tokens) {
+      throw new Error('Engine: call .start() before accessing endpoints');
+    }
+
+    if (lodash.isString(options)) {
+      options = { path: options };
+    } else {
+      options = lodash.cloneDeep(options);
+    }
+
+    options.qs = options.query = options.query || query;
+    options.path = Engine.fixPath(options.path);
+
+    if (this.config.registeredOnly && !this.isRegistered(options.path)) {
+      throw new Error('No endpoint registered for path: ' + options.path);
+    }
+
+    var Class = this._findSubclass(options.path);
+    var norm = Class.normalizePath || lodash.identity;
+
+    options.Class = Class;
+    options.path = norm(options.path);
+    options.key = Engine.pathKey(options.path, options.query);
+
+    return options;
+  }
+
+
+  /**
    * @private
    */
 
@@ -251,7 +299,10 @@ class Engine extends Emitter {
 
 
   /**
-   * Util function to fix API paths.
+   * Util function to normalize API paths.
+   *
+   * Make sure it starts with a slash, and ends with .json;
+   * doesn't mangle query strings.
    *
    * @static
    * @param {string} path
@@ -268,6 +319,31 @@ class Engine extends Emitter {
     path = path[0] === '/' ? path : '/' + path;
     path = /\.json$/.test(path) ? path : path + '.json';
     return path + qs;
+  }
+
+
+  /**
+   * Util function to make pathname+search key for given URI.
+   *
+   * @static
+   * @param {string|object} uri
+   * @param {object} query
+   * @returns {string}
+   */
+
+  static pathKey (uri, query) {
+    var qstr = '';
+    var qobj = query || {};
+    if (!lodash.isObject(uri)) {
+      uri = url.parse(uri, true);
+    }
+    if (!lodash.isEmpty(uri.query)) {
+      qobj = lodash.assign({}, uri.query, qobj);
+    }
+    if (!lodash.isEmpty(qobj)) {
+      qstr = '?' + Endpoint.stringifyQuery(qobj);
+    }
+    return uri.pathname + qstr;
   }
 
 }

@@ -138,4 +138,14 @@ describe('Request', function () {
     request.poll();
   });
 
+
+  describe('stringifyQuery', function () {
+
+    it('should sort by keys', function () {
+      var qs = Request.stringifyQuery({ z: 3, a: 1, m: 2});
+      expect(qs).to.eql('a=1&m=2&z=3');
+    });
+
+  });
+
 });
